@@ -4,8 +4,11 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import ServerView.*;
 
 /**
  * This class manages a thread pool and holds
@@ -19,10 +22,22 @@ public class ServerController {
     private ServerSocket serverSocket;
     private ExecutorService pool;
 
+    private DealerController dealerController;
+
+    // Players
+    private ArrayList<ServerCommunicationController> playerControllers;
+
+
     public ServerController(){
         try{
             serverSocket = new ServerSocket(PORT);
             pool = Executors.newFixedThreadPool(10);
+
+            DealerView dealerView = new DealerView();
+            dealerController = new DealerController(dealerView, this);
+
+            playerControllers = new ArrayList<>();
+
             System.out.println("Server is running");
             printIPInfo();
             System.out.println("********");
@@ -41,6 +56,7 @@ public class ServerController {
         try{
             while(true){
                 ServerCommunicationController scc = new ServerCommunicationController(serverSocket.accept(), this);
+                playerControllers.add(scc);
                 System.out.println("New Client Connected");
                 pool.execute(scc);
             }
@@ -61,4 +77,7 @@ public class ServerController {
         }
     }
 
+    public DealerController getDealerController() {
+        return dealerController;
+    }
 }

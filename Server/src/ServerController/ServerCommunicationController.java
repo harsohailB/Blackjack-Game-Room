@@ -28,13 +28,34 @@ public class ServerCommunicationController implements Runnable{
 
     @Override
     public void run(){
+        createUniqueInputStream();
         // TODO tasks before communication
+        String name = getPlayerName();
+        serverController.getDealerController().addPlayer(name);
         communicate();
     }
 
     public void communicate(){
         while(true){
             // TODO forever loop to listen to client requests
+        }
+    }
+
+    public String getPlayerName(){
+        try {
+            return (String) socketIn.readObject();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    public void createUniqueInputStream() {
+        try {
+            socketIn = new ObjectInputStream(aSocket.getInputStream());
+        } catch (IOException e) {
+            System.out.println("Error creating server output stream");
+            e.printStackTrace();
         }
     }
 

@@ -52,6 +52,18 @@ public class ClientCommunicationController {
 //        ClientCommunicationController ccc = new ClientCommunicationController(inputIP, inputPort);
 
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
+
+        System.out.println("Enter name:");
+        Scanner input = new Scanner(System.in);
+        String name = input.nextLine();
+        try {
+            ccc.socketOut.writeObject(name);
+        }catch (IOException e){
+            e.printStackTrace();
+        }
+        while(true){
+
+        }
     }
 
 }
