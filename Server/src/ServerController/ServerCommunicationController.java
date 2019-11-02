@@ -29,15 +29,15 @@ public class ServerCommunicationController implements Runnable{
     @Override
     public void run(){
         createUniqueInputStream();
-        // TODO tasks before communication
-        String name = getPlayerName();
-        serverController.getDealerController().addPlayer(name);
+        verifyLogin();
+        waitUntilReady();
+        startGame();
         communicate();
     }
 
     public void communicate(){
         while(true){
-            // TODO forever loop to listen to client requests
+            // TODO forever loop to listen to client request
         }
     }
 
@@ -61,5 +61,55 @@ public class ServerCommunicationController implements Runnable{
 
     public void setServerController(ServerController serverController) {
         this.serverController = serverController;
+    }
+
+    public void verifyLogin() {
+        try {
+            boolean verified = false;
+
+            while (!verified) {
+                String username = (String) socketIn.readObject();
+                String password = (String) socketIn.readObject();
+
+                if (serverController.getDealerController().validatePlayerLogin(username, password)) {
+                    send("verified");
+                    System.out.println("Login Success!");
+                    verified = true;
+
+                    serverController.getDealerController().addPlayer(username, password);
+                    serverController.getDealerController().displayTable();
+
+                    serverController.updatePlayers();
+                    serverController.notifyPlayersIfReady();
+                    return;
+                } else {
+                    send("Invalid Username and Password");
+                }
+
+                socketOut.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void waitUntilReady(){
+        while(!serverController.getDealerController().getBlackjackGame().isReady()){
+            // wait until game is ready
+        }
+    }
+
+    public void startGame(){
+        System.out.println("Game Starting");
+        serverController.getDealerController().runGame();
+    }
+
+    public void send(Object o){
+        try {
+            socketOut.writeObject(o);
+        }catch (IOException e){
+            System.out.println("ServerCommController: send() error");
+            e.printStackTrace();
+        }
     }
 }

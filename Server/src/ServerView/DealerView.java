@@ -2,92 +2,25 @@ package ServerView;
 
 import ServerModel.*;
 
-import javax.swing.*;
-import java.awt.*;
 import java.util.ArrayList;
 
+public class DealerView{
 
-//http://faculty.washington.edu/moishe/javademos/blackjack/BlackjackGUI.java
+   public String displayTable(ArrayList<Player> players){
+       String result = showLine() + "\n";
+       for(int i = 0; i < players.size(); i++) {
+           result += displayPlayer(players.get(i)) + "\n";
+       }
+       result += showLine();
+       return result;
+   }
 
-public class DealerView extends JFrame{
+   public String showLine(){
+       return "**************************";
+   }
 
-    // TODO add features accordingly
-    JPanel topPanel, dealerPanel, playerCardPanel;
+   public String displayPlayer(Player player){
+       return player.toString();
+   }
 
-    JButton hitButton, dealButton, stayButton;
-
-    JPanel player1Panel, player2Panel, player3Panel, player4Panel;
-
-
-    public DealerView() {
-        topPanel = new JPanel();
-        playerCardPanel = new JPanel();
-        hitButton = new JButton();
-        dealButton = new JButton();
-        stayButton = new JButton();
-        dealerPanel = new JPanel();
-        player1Panel = new JPanel();
-        player2Panel = new JPanel();
-        player3Panel = new JPanel();
-        player4Panel = new JPanel();
-
-
-        topPanel.setLayout(new FlowLayout());
-        dealButton.setText("Deal");
-        hitButton.setText("Hit");
-        stayButton.setText("Stay");
-
-        dealerPanel.add(new JLabel("Dealer:"));
-        player1Panel.add(new JLabel("Player 1:"));
-        player2Panel.add(new JLabel("Player 2:"));
-        player3Panel.add(new JLabel("Player 3:"));
-        player4Panel.add(new JLabel("Player 4:"));
-
-        topPanel.add(dealButton);
-        topPanel.add(hitButton);
-        topPanel.add(stayButton);
-        playerCardPanel.add(player1Panel);
-        playerCardPanel.add(player2Panel);
-        playerCardPanel.add(player3Panel);
-        playerCardPanel.add(player4Panel);
-
-        setLayout(new BorderLayout());
-        add(topPanel, BorderLayout.NORTH);
-        add(dealerPanel, BorderLayout.CENTER);
-        add(playerCardPanel, BorderLayout.SOUTH);
-
-        display();
-    }
-
-    public void display(){
-        setSize(700, 250);
-        setLocationRelativeTo(null);
-        setVisible(true);
-        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    }
-
-    public void updateCard(Card card, JPanel panel){
-        panel.add(new JLabel(card.getImageIcon()));
-        revalidate();
-    }
-
-    public JPanel getDealerPanel() {
-        return dealerPanel;
-    }
-
-    public JPanel getPlayer1Panel() {
-        return player1Panel;
-    }
-
-    public JPanel getPlayer2Panel() {
-        return player2Panel;
-    }
-
-    public JPanel getPlayer3Panel() {
-        return player3Panel;
-    }
-
-    public JPanel getPlayer4Panel() {
-        return player4Panel;
-    }
 }

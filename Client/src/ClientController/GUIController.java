@@ -1,8 +1,6 @@
 package ClientController;
 
-import javax.swing.*;
-
-public abstract class GUIController extends JFrame {
+public abstract class GUIController{
 
     // holds socket connections to server
     protected ClientCommunicationController clientCommunicationController;

@@ -77,6 +77,24 @@ public class ServerController {
         }
     }
 
+    public void updatePlayers(){
+        String table = dealerController.getTable();
+        sendToAllPlayer(table);
+    }
+
+    public void sendToAllPlayer(String s){
+        for(int i = 0; i < playerControllers.size(); i++){
+            ServerCommunicationController playerController = playerControllers.get(i);
+            playerController.send(s);
+        }
+    }
+
+    public void notifyPlayersIfReady(){
+        if(dealerController.getBlackjackGame().isReady()){
+            sendToAllPlayer("ready");
+        }
+    }
+
     public DealerController getDealerController() {
         return dealerController;
     }

@@ -3,12 +3,38 @@
   <component name="ChangeListManager">
     <list default="true" id="30a173c0-05d4-4d9f-8889-23169b2f7810" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/GUIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/GUIController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/MainGUIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/MainGUIController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/LoginView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/MainView.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/MainView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/ClientCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/ClientCommunicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/GUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/GUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/MainGUIController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/MainGUIController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientView/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientView/MainView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/BlackjackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/BlackjackGame.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/CARD_INFO.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/CARD_INFO.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/Card.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/Card.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/Deck.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/Deck.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/Hand.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/Hand.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerView/DealerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerView/DealerView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/DealerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/DealerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerController/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/BlackjackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/BlackjackGame.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/CARD_INFO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/CARD_INFO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/Card.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Card.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/Deck.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Deck.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Hand.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerView/DealerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerView/DealerView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

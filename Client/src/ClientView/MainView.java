@@ -1,4 +1,8 @@
 package ClientView;
 
-public class MainView {
+
+public class MainView{
+
+
+
 }
