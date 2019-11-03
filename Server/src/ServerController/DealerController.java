@@ -4,6 +4,7 @@ import ServerModel.*;
 import ServerView.DealerView;
 
 import javax.swing.*;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -128,23 +129,33 @@ public class DealerController {
         serverController.sendToAllPlayers("Distributing Winnings and Collecting Losses");
 
         Player p;
-        Player dealer = blackjackGame.getPlayers().get(0);
-        for(int i = 1; i < blackjackGame.getPlayers().size(); i++){
-            p = blackjackGame.getPlayers().get(i);
-            if(p.isInGame()){
-                if(blackjackGame.dealerBust()){
-                    p.addBalance(p.getBet() * 2);
-                    serverController.sendToPlayer("You win!", i);
-                }else{
-                    if(blackjackGame.didPlayerWin(p)){
-                        p.addBalance(p.getBet() * 2);
-                        serverController.sendToPlayer("You win!", i);
-                    }else{
-                        serverController.sendToPlayer("You lose...", i);
-                    }
-                }
+
+        ArrayList<Integer> playerIndices;
+        playerIndices = blackjackGame.dealerBust();
+        if(playerIndices.size() != 0){
+            for(Integer i: playerIndices) {
+                p = blackjackGame.getPlayers().get(i);
+                serverController.sendToPlayer("Dealer Bust: You win!", i);
+                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
             }
-            serverController.sendToPlayer("Ending Balance: " + p.getBalance(),i);
+        }
+
+        playerIndices = blackjackGame.payWinners();
+        if(playerIndices.size() != 0){
+            for(Integer i: playerIndices) {
+                p = blackjackGame.getPlayers().get(i);
+                serverController.sendToPlayer("You win!", i);
+                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
+            }
+        }
+
+        playerIndices = blackjackGame.chargeLosers();
+        if(playerIndices.size() != 0){
+            for(Integer i: playerIndices) {
+                p = blackjackGame.getPlayers().get(i);
+                serverController.sendToPlayer("You lose! Dealer Wins...", i);
+                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
+            }
         }
     }
 

@@ -1,5 +1,6 @@
 package ServerModel;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class BlackjackGame {
@@ -100,12 +101,37 @@ public class BlackjackGame {
         player.addBalance(payment);
     }
 
-    public boolean dealerBust(){
+    public ArrayList<Integer> dealerBust(){
+        ArrayList<Integer> playerIndices = new ArrayList<>();
         Player dealer = players.get(0);
+        Player player;
+
         if(dealer.getHand().getValue() > 21){
-            return true;
+            for(int i = 1; i < players.size(); i++){
+                player = players.get(i);
+                if(player.isInGame()){
+                    playerIndices.add(i);
+                }
+            }
         }
-        return false;
+
+        return playerIndices;
+    }
+
+    public ArrayList<Integer> chargeLosers(){
+        ArrayList<Integer> loserIndices = new ArrayList<>();
+        Player player;
+
+        for(int i = 1; i < players.size(); i++){
+            player = players.get(i);
+            if(player.isInGame()) {
+                if (!didPlayerWin(player)) {
+                    loserIndices.add(i);
+                }
+            }
+        }
+
+        return loserIndices;
     }
 
     public boolean didPlayerWin(Player player){
@@ -114,6 +140,22 @@ public class BlackjackGame {
             return true;
         }
         return false;
+    }
+
+    public ArrayList<Integer> payWinners(){
+        ArrayList<Integer> winnerIndices = new ArrayList<>();
+        Player player;
+
+        for(int i = 1; i < players.size(); i++){
+            player = players.get(i);
+            if(player.isInGame()) {
+                if (didPlayerWin(player)) {
+                    winnerIndices.add(i);
+                }
+            }
+        }
+
+        return winnerIndices;
     }
 
     // Getters and Setters
