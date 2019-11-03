@@ -5,8 +5,9 @@ public class Player {
     private String username;
     private String password;
     private Hand hand;
-    private int balance;
-    private int bet;
+    private double balance;
+    private double bet;
+    private boolean inGame;
 
     public Player(String username, String password, int balance){
         this.username = username;
@@ -14,12 +15,36 @@ public class Player {
         this.balance = balance;
         hand = new Hand();
         bet = 0;
+        inGame = true;
     }
 
     public boolean isCardCount(int i){
         if(hand.getCards().size() == i)
             return true;
         return false;
+    }
+
+    public boolean isInGame(){
+        return inGame;
+    }
+
+    public void bench(){
+        inGame = false;
+        bet = 0;
+        hand.reset();
+    }
+
+    public void addBalance(double winning){
+        balance += winning;
+    }
+
+    public void decreaseBalance(double loss){
+        balance -= loss;
+    }
+
+    public void makeBet(double bet){
+        this.bet += bet;
+        decreaseBalance(bet);
     }
 
     public String getName() {
@@ -38,8 +63,12 @@ public class Player {
         return password;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
+    }
+
+    public double getBet() {
+        return bet;
     }
 
     public String toString(){
@@ -56,14 +85,14 @@ public class Player {
         }
 
         if(hand.getCards().size() > 0) {
-            result += " Value: " + hand.getHandValue();
+            result += " Value: " + hand.getValue();
             result += " Bet: " + bet;
         }
 
         return result;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

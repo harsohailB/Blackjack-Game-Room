@@ -21,7 +21,7 @@ public class BlackjackGame {
 
     // Adds new player to game
     public void addPlayer(Player p){
-        players.add(new Player(p.getName(), p.getPassword(), p.getBalance()));
+        players.add(p);
     }
 
     // Deals a card to player
@@ -40,6 +40,11 @@ public class BlackjackGame {
         }
     }
 
+    public void hitPlayer(Player p){
+        dealCardToPlayer(p, true);
+        p.makeBet(10);
+    }
+
     // Return player whose turn it is
     public Player getTurnPlayer(){
         return players.get(turn);
@@ -48,14 +53,10 @@ public class BlackjackGame {
     // Charges starting bets
     public void takeStartingBet(int bet){
         Player p;
-        int newBalance, currBalance;
 
         for(int i = 0; i < players.size(); i++){
             p = players.get(i);
-            currBalance = p.getBalance();
-            newBalance = currBalance - bet;
-            p.setBalance(newBalance);
-            p.setBet(bet);
+            p.makeBet(bet);
         }
     }
 
@@ -72,9 +73,31 @@ public class BlackjackGame {
     // Return game status
     public boolean isGameInPlay(){
         return true;
-//        if(players.get(0).getHand().getHandValue() < 17)
-//            return true;
-//        return false;
+    }
+
+    public void payNaturals(){
+        Player p;
+        for(int i = 1; i < players.size(); i++){
+            p = players.get(i);
+            if(p.getHand().hasBlackjack()){
+                payPlayer(p, p.getBet() * 1.5);
+                p.bench();
+            }
+        }
+    }
+
+    public boolean kickIfBusts(Player p){
+        if(p.isInGame() && p.getHand().hasBust()){
+            p.bench();
+            return true;
+        }
+        return false;
+    }
+
+    public void payPlayer(Player player, double payment){
+        Player dealer = players.get(0);
+        dealer.decreaseBalance(payment);
+        player.addBalance(payment);
     }
 
     // Getters and Setters

@@ -22,7 +22,7 @@ public class ServerController {
     private static final int PORT = 9000;
     private ServerSocket serverSocket;
 
-    // Thead Pool
+    // Thread Pool
     private ExecutorService pool;
 
     // Holds Dealer Model and Dealer View
@@ -90,7 +90,7 @@ public class ServerController {
     // Updates players with the Blackjack Table
     public void updatePlayers(){
         String table = dealerController.getTable();
-        sendTableToAllPlayer(table);
+        sendTableToAllPlayers(table);
     }
 
     // Sends a string to all players
@@ -112,7 +112,7 @@ public class ServerController {
     }
 
     // Sends table to all players
-    public void sendTableToAllPlayer(String s){
+    public void sendTableToAllPlayers(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
             playerController.send("table");
