@@ -30,7 +30,7 @@ public class DealerView{
        return player.toString();
    }
 
-   public String promptDeal(){
+   public void promptDeal(){
        String input = null;
 
        do{
@@ -38,8 +38,6 @@ public class DealerView{
            input = scanner.nextLine();
            input = input.toLowerCase();
        }while(!input.equals("deal"));
-
-       return input;
    }
 
    public void displayMessage(String s){

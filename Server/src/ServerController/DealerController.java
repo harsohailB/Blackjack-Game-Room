@@ -47,16 +47,14 @@ public class DealerController {
         Player turnPlayer = blackjackGame.getTurnPlayer();
 
         while(!turnPlayer.isCardCount(2)){
-            String dealerInput = dealerView.promptDeal();
+            dealerView.promptDeal();
 
-            if (dealerInput.equals("deal")) {
-                if(turnPlayer.getName().equals("dealer") && turnPlayer.isCardCount(0)){
-                    blackjackGame.dealCardToPlayer(turnPlayer, false);
-                }else {
-                    blackjackGame.dealCardToPlayer(turnPlayer, true);
-                }
-                blackjackGame.advanceTurn();
+            if(turnPlayer.getName().equals("dealer") && turnPlayer.isCardCount(0)){
+                blackjackGame.dealCardToPlayer(turnPlayer, false);
+            }else {
+                blackjackGame.dealCardToPlayer(turnPlayer, true);
             }
+            blackjackGame.advanceTurn();
 
             turnPlayer = blackjackGame.getTurnPlayer();
 
@@ -68,9 +66,11 @@ public class DealerController {
     }
 
     public void dealSecondRound() {
+        int playersDealt = 0;
+        int totalPlayers = blackjackGame.getPlayers().size();
         Player turnPlayer = blackjackGame.getTurnPlayer();;
 
-        while(turnPlayer.isCardCount(2)) {
+        while(playersDealt < totalPlayers) {
             dealerView.displayMessage("Dealing Next Player: " + turnPlayer.getName());
             if (!turnPlayer.getName().equals("dealer") && turnPlayer.isInGame()) {
                 playPlayerTurn(turnPlayer);
@@ -79,6 +79,7 @@ public class DealerController {
             }
 
             blackjackGame.advanceTurn();
+            playersDealt++;
             turnPlayer = blackjackGame.getTurnPlayer();
         }
 
@@ -88,10 +89,9 @@ public class DealerController {
     public void dealerTurn(Player dealer){
         dealer.getHand().showHand();
         while(dealer.getHand().getValue() < 17) {
-            String dealerInput = dealerView.promptDeal();
+            dealerView.promptDeal();
 
-            if (dealerInput.equals("deal"))
-                blackjackGame.dealCardToPlayer(dealer, true);
+            blackjackGame.dealCardToPlayer(dealer, true);
 
             serverController.sendToAllPlayers("Dealer's turn:");
             serverController.updatePlayers();
@@ -124,6 +124,9 @@ public class DealerController {
     }
 
     public void distributeWinnings(){
+        dealerView.displayMessage("Distributing Winnings and Collecting Losses");
+        serverController.sendToAllPlayers("Distributing Winnings and Collecting Losses");
+
         Player p;
         Player dealer = blackjackGame.getPlayers().get(0);
         for(int i = 1; i < blackjackGame.getPlayers().size(); i++){
@@ -135,6 +138,7 @@ public class DealerController {
                 }else{
                     if(p.getHand().getValue() > dealer.getHand().getValue()){
                         p.addBalance(p.getBet() * 2);
+                        serverController.sendToPlayer("You win!", i);
                     }else{
                         serverController.sendToPlayer("You lose...", i);
                     }

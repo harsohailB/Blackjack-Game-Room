@@ -8,6 +8,7 @@ public class Player {
     private double balance;
     private double bet;
     private boolean inGame;
+    private boolean played;
 
     public Player(String username, String password, int balance){
         this.username = username;
@@ -16,6 +17,7 @@ public class Player {
         hand = new Hand();
         bet = 0;
         inGame = true;
+        played = false;
     }
 
     public boolean isCardCount(int i){
