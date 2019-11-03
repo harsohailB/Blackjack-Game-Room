@@ -6,8 +6,6 @@ import javax.swing.*;
 
 public class LoginController extends GUIController{
 
-    //MEMBER VARIABLES
-
     private LoginView loginView;
     private boolean verified;
 

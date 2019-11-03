@@ -16,10 +16,12 @@ import ClientView.*;
 
 public class ClientCommunicationController {
 
+    // Sockets
     private ObjectOutputStream socketOut;
     private Socket aSocket;
     private ObjectInputStream socketIn;
 
+    // Controllers
     private LoginController loginController;
     private MainGUIController mainGUIController;
 
@@ -41,11 +43,15 @@ public class ClientCommunicationController {
         }
     }
 
+    // Connects to blackjack server
     public static void main(String[] args){
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
         ccc.communicate();
     }
 
+    // First: Login listen takes username from player and send to server for verification
+    // Second: Player waits until game is ready to start
+    // Finally: Forever while loop to listen and interact with server using switch statement
     public void communicate(){
         loginController.loginListen();
         waitTillGameReady();
@@ -70,6 +76,7 @@ public class ClientCommunicationController {
         }
     }
 
+    // Receives updates from server while waiting for game to start
     public void waitTillGameReady(){
         try {
             while (true) {
@@ -88,6 +95,7 @@ public class ClientCommunicationController {
         }
     }
 
+    // Receives table from server to display
     public void receiveTable(){
         try {
             System.out.println((String)socketIn.readObject());
@@ -97,6 +105,7 @@ public class ClientCommunicationController {
         }
     }
 
+    // Gives hit or stand decision to server
     public void hitOrStand(){
         try {
             String input = (String) loginController.getLoginView().promptHitOrStand();

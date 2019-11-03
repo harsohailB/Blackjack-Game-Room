@@ -18,16 +18,20 @@ import ServerView.*;
 
 public class ServerController {
 
+    // Server Socket
     private static final int PORT = 9000;
     private ServerSocket serverSocket;
+
+    // Thead Pool
     private ExecutorService pool;
 
+    // Holds Dealer Model and Dealer View
     private DealerController dealerController;
 
     // Players
     private ArrayList<ServerCommunicationController> playerControllers;
 
-
+    // Constructor to construct ServerController objects
     public ServerController(){
         try{
             serverSocket = new ServerSocket(PORT);
@@ -47,11 +51,16 @@ public class ServerController {
         }
     }
 
+    // Main function which creates a server controller object
     public static void main(String[] args){
         ServerController myServer = new ServerController();
         myServer.communicateWithClient();
     }
 
+    // Forever while loop which waits for client connections
+    // and creates a new ServerCommunicationController object
+    // upon connection. Each ServerCommunicationController is
+    // given to a new thread to run
     public void communicateWithClient(){
         try{
             while(true){
@@ -66,6 +75,7 @@ public class ServerController {
         }
     }
 
+    // Prints IP Info of the server
     public void printIPInfo(){
         InetAddress ip;
         try{
@@ -77,11 +87,13 @@ public class ServerController {
         }
     }
 
+    // Updates players with the Blackjack Table
     public void updatePlayers(){
         String table = dealerController.getTable();
         sendTableToAllPlayer(table);
     }
 
+    // Sends a string to all players
     public void sendToAllPlayers(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
@@ -89,14 +101,17 @@ public class ServerController {
         }
     }
 
+    // Sends a string to a specific player
     public void sendToPlayer(String s, int player){
         playerControllers.get(player - 1).send(s);
     }
 
+    // Receives a string from a specific player
     public String receiveFromPlayer(int player){
         return playerControllers.get(player - 1).receive();
     }
 
+    // Sends table to all players
     public void sendTableToAllPlayer(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
@@ -107,6 +122,7 @@ public class ServerController {
         }
     }
 
+    // Notifies waiting players with game status
     public void notifyPlayersIfReady(){
         if(dealerController.getBlackjackGame().isReady()){
             sendToAllPlayers("ready");
@@ -114,6 +130,8 @@ public class ServerController {
             sendToAllPlayers("Waiting for players");
         }
     }
+
+    // Getters and Setters
 
     public DealerController getDealerController() {
         return dealerController;

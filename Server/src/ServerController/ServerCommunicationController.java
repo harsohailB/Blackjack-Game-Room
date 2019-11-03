@@ -7,12 +7,19 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
 
+/**
+ * This class is responsible for communicating with the client
+ */
+
 public class ServerCommunicationController implements Runnable{
 
+    // Sockets
     private Socket aSocket;
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
     private ServerController serverController;
+
+    // Player that this object is connected with
     private Player player;
 
     public ServerCommunicationController(Socket s, ServerController serverController){
@@ -29,6 +36,7 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
+    // Threads in threadpool of server run this function
     @Override
     public void run(){
         createUniqueInputStream();
@@ -44,15 +52,8 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
-    public String getPlayerName(){
-        try {
-            return (String) socketIn.readObject();
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return null;
-    }
-
+    // Creates a unique input stream from the player
+    // If this is not done, input stream from other players is used
     public void createUniqueInputStream() {
         try {
             socketIn = new ObjectInputStream(aSocket.getInputStream());
@@ -62,6 +63,7 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
+    // Receives string from player
     public String receive(){
         try {
             return (String)socketIn.readObject();
@@ -71,10 +73,12 @@ public class ServerCommunicationController implements Runnable{
         return null;
     }
 
+    // Association with server controller
     public void setServerController(ServerController serverController) {
         this.serverController = serverController;
     }
 
+    // Verifies player login
     public void verifyLogin() {
         try {
             boolean verified = false;
@@ -106,17 +110,20 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
+    // A while loop to wait until game is ready to start
     public void waitUntilReady(){
         while(!serverController.getDealerController().getBlackjackGame().isReady()){
             // wait until game is ready
         }
     }
 
+    // Starts game
     public void startGame(){
         System.out.println("Game Starting");
         serverController.getDealerController().runGame();
     }
 
+    // Sends an object to player
     public void send(Object o){
         try {
             socketOut.writeObject(o);
@@ -126,6 +133,7 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
+    // Sends player account balance to player
     public void sendAccountBalance(){
         try {
             String accountBalance = "Account Balance: " + player.getBalance();
