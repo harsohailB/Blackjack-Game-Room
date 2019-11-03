@@ -100,6 +100,22 @@ public class BlackjackGame {
         player.addBalance(payment);
     }
 
+    public boolean dealerBust(){
+        Player dealer = players.get(0);
+        if(dealer.getHand().getValue() > 21){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean didPlayerWin(Player player){
+        Player dealer = players.get(0);
+        if(player.getHand().getValue() > dealer.getHand().getValue()){
+            return true;
+        }
+        return false;
+    }
+
     // Getters and Setters
 
     public ArrayList<Player> getPlayers() {

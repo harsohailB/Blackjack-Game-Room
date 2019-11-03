@@ -132,11 +132,11 @@ public class DealerController {
         for(int i = 1; i < blackjackGame.getPlayers().size(); i++){
             p = blackjackGame.getPlayers().get(i);
             if(p.isInGame()){
-                if(dealer.getHand().getValue() > 21){
+                if(blackjackGame.dealerBust()){
                     p.addBalance(p.getBet() * 2);
                     serverController.sendToPlayer("You win!", i);
                 }else{
-                    if(p.getHand().getValue() > dealer.getHand().getValue()){
+                    if(blackjackGame.didPlayerWin(p)){
                         p.addBalance(p.getBet() * 2);
                         serverController.sendToPlayer("You win!", i);
                     }else{
