@@ -50,8 +50,23 @@ public class ClientCommunicationController {
         loginController.loginListen();
         waitTillGameReady();
 
-        while(true){
-            receiveTable();
+        try {
+            while (true) {
+                String input = (String) socketIn.readObject();
+                switch (input){
+                    case "table":
+                        receiveTable();
+                        break;
+                    case "turn":
+                        hitOrStand();
+                        break;
+                    default:
+                        System.out.println(input);
+                }
+            }
+        }catch (Exception e) {
+            System.out.println("communicate() error");
+            e.printStackTrace();
         }
     }
 
@@ -78,6 +93,15 @@ public class ClientCommunicationController {
             System.out.println((String)socketIn.readObject());
         } catch (Exception e){
             System.out.println("WaitTillGameReady() error");
+            e.printStackTrace();
+        }
+    }
+
+    public void hitOrStand(){
+        try {
+            String input = (String) loginController.getLoginView().promptHitOrStand();
+            socketOut.writeObject(input);
+        }catch (IOException e){
             e.printStackTrace();
         }
     }

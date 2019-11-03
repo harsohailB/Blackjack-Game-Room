@@ -8,25 +8,24 @@ public class PlayerAccounts {
 
     public PlayerAccounts(){
         players = new HashMap<>();
-        players.put("dealer", new Player("dealer", "dealer"));
     }
 
     public Player getPlayer(String username){
         return players.get(username);
     }
 
-    public boolean verifyPlayer(String username, String password){
+    public Player verifyPlayer(String username, String password){
         if(players.containsKey(username)){
             Player p = players.get(username);
             if(p.getPassword().equals(password)){
-                return true;
+                return p;
             }
         }
-        return false;
+        return null;
     }
 
     public void addAccount(String username, String password){
-        players.put(username, new Player(username, password));
+        players.put(username, new Player(username, password, 200));
     }
 
 }

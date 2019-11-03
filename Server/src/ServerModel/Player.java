@@ -6,25 +6,20 @@ public class Player {
     private String password;
     private Hand hand;
     private int balance;
-
-    public Player(String username, String password){
-        this.username = username;
-        this.password = password;
-        if(username.equals("dealer"))
-            balance = 100000000;
-        else
-            balance = 200;
-        hand = new Hand();
-    }
+    private int bet;
 
     public Player(String username, String password, int balance){
         this.username = username;
         this.password = password;
-        if(username.equals("dealer"))
-            balance = 100000000;
-        else
-            balance = balance;
+        this.balance = balance;
         hand = new Hand();
+        bet = 0;
+    }
+
+    public boolean isCardCount(int i){
+        if(hand.getCards().size() == i)
+            return true;
+        return false;
     }
 
     public String getName() {
@@ -60,6 +55,19 @@ public class Player {
             result += card.toString();
         }
 
+        if(hand.getCards().size() > 0) {
+            result += " Value: " + hand.getHandValue();
+            result += " Bet: " + bet;
+        }
+
         return result;
+    }
+
+    public void setBalance(int balance) {
+        this.balance = balance;
+    }
+
+    public void setBet(int bet) {
+        this.bet = bet;
     }
 }

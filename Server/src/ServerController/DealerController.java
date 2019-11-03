@@ -26,14 +26,63 @@ public class DealerController {
 
         // TODO Remove after testing
         playerAccounts.addAccount("test", "123");
-
-        // TODO Add action listeners for buttons
     }
 
     public void runGame(){
-        dealCardToPlayer(blackjackGame.getPlayers().get(1), blackjackGame.getDeck().getRandomCard());
+        takeStartingBets(10);
+        dealFirstRound();
+        System.out.println(blackjackGame.isGameInPlay());
+        while(blackjackGame.isGameInPlay()){
+            dealNextPlayer();
+        }
+    }
+
+    public void dealFirstRound(){
+        Player turnPlayer = blackjackGame.getTurnPlayer();
+
+        while(!turnPlayer.isCardCount(2)){
+            String dealerInput = dealerView.promptDeal();
+
+            if (dealerInput.equals("deal")) {
+                if(turnPlayer.getName().equals("dealer")){
+                    blackjackGame.dealCardToPlayer(turnPlayer, false);
+                }
+                blackjackGame.dealCardToPlayer(turnPlayer, true);
+                blackjackGame.advanceTurn();
+            }
+
+            turnPlayer = blackjackGame.getTurnPlayer();
+
+            serverController.updatePlayers();
+            displayTable();
+        }
+
+        dealerView.displayMessage("First Round Done!");
+    }
+
+    public void dealNextPlayer() {
+        Player turnPlayer = blackjackGame.getTurnPlayer();
+        dealerView.displayMessage("Dealing Next Player: " + turnPlayer.getName());
+        String playerResponse;
+
+        if (!turnPlayer.getName().equals("dealer")) {
+            serverController.sendToPlayer("turn", blackjackGame.getTurn());
+            playerResponse = serverController.receiveFromPlayer(blackjackGame.getTurn());
+            if(playerResponse.equals("hit")){
+                blackjackGame.dealCardToPlayer(turnPlayer, true);
+            }
+        }else{
+            blackjackGame.dealCardToPlayer(turnPlayer, true);
+        }
+
         serverController.updatePlayers();
         displayTable();
+        blackjackGame.advanceTurn();
+    }
+
+    public void takeStartingBets(int bet){
+        blackjackGame.takeStartingBet(bet);
+        serverController.sendToAllPlayers("Made default bet: 10");
     }
 
     public void displayTable(){
@@ -44,18 +93,11 @@ public class DealerController {
         return dealerView.displayTable(blackjackGame.getPlayers());
     }
 
-    public void addPlayer(String username, String password){
-        if(validatePlayerLogin(username, password)){
-            Player p = playerAccounts.getPlayer(username);
-            blackjackGame.addPlayer(p);
-        }
+    public void addPlayer(Player p){
+        blackjackGame.addPlayer(p);
     }
 
-    public void dealCardToPlayer(Player player, Card card){
-        player.getHand().addCard(card);
-    }
-
-    public boolean validatePlayerLogin(String username, String password){
+    public Player validatePlayerLogin(String username, String password){
         return playerAccounts.verifyPlayer(username, password);
     }
 

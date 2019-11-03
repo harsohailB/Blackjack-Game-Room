@@ -1,5 +1,7 @@
 package ServerController;
 
+import ServerModel.Player;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -11,6 +13,7 @@ public class ServerCommunicationController implements Runnable{
     private ObjectInputStream socketIn;
     private ObjectOutputStream socketOut;
     private ServerController serverController;
+    private Player player;
 
     public ServerCommunicationController(Socket s, ServerController serverController){
         try{
@@ -37,7 +40,7 @@ public class ServerCommunicationController implements Runnable{
 
     public void communicate(){
         while(true){
-            // TODO forever loop to listen to client request
+
         }
     }
 
@@ -59,6 +62,15 @@ public class ServerCommunicationController implements Runnable{
         }
     }
 
+    public String receive(){
+        try {
+            return (String)socketIn.readObject();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
     public void setServerController(ServerController serverController) {
         this.serverController = serverController;
     }
@@ -71,12 +83,13 @@ public class ServerCommunicationController implements Runnable{
                 String username = (String) socketIn.readObject();
                 String password = (String) socketIn.readObject();
 
-                if (serverController.getDealerController().validatePlayerLogin(username, password)) {
+                player = serverController.getDealerController().validatePlayerLogin(username, password);
+                if (player != null) {
                     send("verified");
                     System.out.println("Login Success!");
                     verified = true;
 
-                    serverController.getDealerController().addPlayer(username, password);
+                    serverController.getDealerController().addPlayer(player);
                     serverController.getDealerController().displayTable();
 
                     serverController.updatePlayers();
@@ -107,6 +120,16 @@ public class ServerCommunicationController implements Runnable{
     public void send(Object o){
         try {
             socketOut.writeObject(o);
+        }catch (IOException e){
+            System.out.println("ServerCommController: send() error");
+            e.printStackTrace();
+        }
+    }
+
+    public void sendAccountBalance(){
+        try {
+            String accountBalance = "Account Balance: " + player.getBalance();
+            socketOut.writeObject(accountBalance);
         }catch (IOException e){
             System.out.println("ServerCommController: send() error");
             e.printStackTrace();

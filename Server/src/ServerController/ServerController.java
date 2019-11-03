@@ -79,19 +79,39 @@ public class ServerController {
 
     public void updatePlayers(){
         String table = dealerController.getTable();
-        sendToAllPlayer(table);
+        sendTableToAllPlayer(table);
     }
 
-    public void sendToAllPlayer(String s){
+    public void sendToAllPlayers(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
             playerController.send(s);
         }
     }
 
+    public void sendToPlayer(String s, int player){
+        playerControllers.get(player - 1).send(s);
+    }
+
+    public String receiveFromPlayer(int player){
+        return playerControllers.get(player - 1).receive();
+    }
+
+    public void sendTableToAllPlayer(String s){
+        for(int i = 0; i < playerControllers.size(); i++){
+            ServerCommunicationController playerController = playerControllers.get(i);
+            playerController.send("table");
+            playerController.send(s);
+            // TODO not updating with bets (player reference???)
+            playerController.sendAccountBalance();
+        }
+    }
+
     public void notifyPlayersIfReady(){
         if(dealerController.getBlackjackGame().isReady()){
-            sendToAllPlayer("ready");
+            sendToAllPlayers("ready");
+        }else{
+            sendToAllPlayers("Waiting for players");
         }
     }
 
