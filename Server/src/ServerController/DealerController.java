@@ -40,8 +40,7 @@ public class DealerController {
     }
 
     public void endGame(){
-        serverController.updatePlayers();
-        serverController.sendToAllPlayers("Ending Game: Dealer Bust");
+        serverController.sendToAllPlayers("Ending Game...");
     }
 
     public void dealFirstRound(){
@@ -121,7 +120,7 @@ public class DealerController {
 
         serverController.updatePlayers();
         displayTable();
-        dealerView.displayMessage(turnPlayer.getName() + "stands");
+        dealerView.displayMessage(turnPlayer.getName() + " stands:");
     }
 
     public void distributeWinnings(){
@@ -130,6 +129,7 @@ public class DealerController {
 
         Player p;
 
+        // Notify players in game that dealer busted
         ArrayList<Integer> playerIndices;
         playerIndices = blackjackGame.dealerBust();
         if(playerIndices.size() != 0){
