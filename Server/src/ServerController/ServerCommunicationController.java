@@ -43,13 +43,6 @@ public class ServerCommunicationController implements Runnable{
         verifyLogin();
         waitUntilReady();
         startGame();
-        communicate();
-    }
-
-    public void communicate(){
-        while(true){
-
-        }
     }
 
     // Creates a unique input stream from the player

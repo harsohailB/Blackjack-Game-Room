@@ -1,10 +1,9 @@
 package ServerController;
 
 import java.io.IOException;
-import java.net.InetAddress;
-import java.net.ServerSocket;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -21,6 +20,8 @@ public class ServerController {
     // Server Socket
     private static final int PORT = 9000;
     private ServerSocket serverSocket;
+    private DatagramSocket udpSocket;
+    private byte[] receiveBuffer;
 
     // Thread Pool
     private ExecutorService pool;
@@ -35,6 +36,8 @@ public class ServerController {
     public ServerController(){
         try{
             serverSocket = new ServerSocket(PORT);
+            udpSocket = new DatagramSocket(1234);   // change port magic number
+            receiveBuffer = new byte[65535];
             pool = Executors.newFixedThreadPool(10);
 
             DealerView dealerView = new DealerView();
@@ -54,6 +57,8 @@ public class ServerController {
     // Main function which creates a server controller object
     public static void main(String[] args){
         ServerController myServer = new ServerController();
+        Thread recvMessage = new Thread(() -> myServer.getChatMessages());
+        recvMessage.start();
         myServer.communicateWithClient();
     }
 
@@ -72,6 +77,21 @@ public class ServerController {
         }catch (IOException e){
             System.out.println("ServerController: CommunicateWithClient() Error");
             e.printStackTrace();
+        }
+    }
+
+    public void getChatMessages(){
+        DatagramPacket udpPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
+        String msg;
+        while(true){
+            try {
+                udpSocket.receive(udpPacket);
+                msg = new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
+                System.out.println(msg);
+                receiveBuffer = new byte[65535];
+            }catch (IOException e){
+                e.printStackTrace();
+            }
         }
     }
 

@@ -8,6 +8,7 @@ public class LoginController extends GUIController{
 
     private LoginView loginView;
     private boolean verified;
+    private String username;
 
     public LoginController(LoginView l, ClientCommunicationController ccc){
         super(ccc);
@@ -32,6 +33,7 @@ public class LoginController extends GUIController{
                 if (verification.equals("verified")) {
                     verified = true;
                     System.out.println("User Logged In!");
+                    this.username = username;
                 } else {
                     System.out.println("Invalid Username or Password. Try again");
                 }
@@ -44,6 +46,10 @@ public class LoginController extends GUIController{
     }
 
     // Getters and setters
+    public String getUsername() {
+        return username;
+    }
+
     public LoginView getLoginView() {
         return loginView;
     }

@@ -32,16 +32,11 @@ public class LoginView{
         return input;
     }
 
-    public String promptHitOrStand(){
-        String input = null;
-
-        do{
-            System.out.println("Hit or Stand:");
-            input = scanner.nextLine();
-            input = input.toLowerCase();
-        }while(!input.equals("hit") && !input.equals("stand"));
-
-        return input;
+    public Scanner getScanner() {
+        return scanner;
     }
 
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
 }

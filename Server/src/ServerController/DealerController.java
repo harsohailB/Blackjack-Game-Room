@@ -18,6 +18,8 @@ public class DealerController {
 
     private PlayerAccounts playerAccounts;
 
+    private Thread recvMessage;
+
     public DealerController(DealerView dv, ServerController sc){
         dealerView = dv;
         serverController = sc;

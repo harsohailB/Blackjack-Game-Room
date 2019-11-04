@@ -1,12 +1,16 @@
 package ClientController;
 
+import ClientView.LoginView;
+import ClientView.MainView;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.net.DatagramPacket;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Scanner;
-
-import ClientView.*;
 
 /**
  * This ClientCommunicationControlller class connects to the
@@ -14,12 +18,16 @@ import ClientView.*;
  * It sends requests to the server using the actions of the player
  */
 
-public class ClientCommunicationController {
+public class ClientCommunicationController extends Thread{
 
     // Sockets
     private ObjectOutputStream socketOut;
     private Socket aSocket;
     private ObjectInputStream socketIn;
+    private DatagramSocket udpSocket;
+    private byte[] udpBuffer;
+    private InetAddress IP;
+    private boolean turn;
 
     // Controllers
     private LoginController loginController;
@@ -31,6 +39,10 @@ public class ClientCommunicationController {
 
             socketIn = new ObjectInputStream(aSocket.getInputStream());
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
+
+            udpSocket = new DatagramSocket();
+            IP = InetAddress.getLocalHost();
+            turn = false;
 
             LoginView loginView = new LoginView();
             MainView mainView = new MainView();
@@ -55,6 +67,14 @@ public class ClientCommunicationController {
     public void communicate(){
         loginController.loginListen();
         waitTillGameReady();
+        Thread sendMessage = new Thread(() -> {
+            try {
+                sendMessagesToServer();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
+        sendMessage.start();
 
         try {
             while (true) {
@@ -64,7 +84,8 @@ public class ClientCommunicationController {
                         receiveTable();
                         break;
                     case "turn":
-                        hitOrStand();
+                        System.out.println("Hit or Stand:");
+                        turn = true;
                         break;
                     default:
                         System.out.println(input);
@@ -72,6 +93,49 @@ public class ClientCommunicationController {
             }
         }catch (Exception e) {
             System.out.println("communicate() error");
+            e.printStackTrace();
+        }
+    }
+
+    public void sendMessagesToServer() throws IOException{
+        Scanner scanner = new Scanner(System.in);
+        InetAddress ip = InetAddress.getLocalHost();
+        String input = "";
+
+        while(true){
+            if(turn){
+                while(!input.equals("hit") && !input.equals("stand")) {
+                    input = mainGUIController.getMainView().promptHitOrStand();
+                }
+                socketOut.writeObject(input);
+                turn = false;
+            }else {
+                System.out.println("Enter message with '/all':");
+                input = scanner.nextLine();
+
+                if(turn) {
+                    continue;   // directed to "Hit or Stand" input
+                }
+
+                sendChatMessage(input);
+            }
+        }
+    }
+
+    public void sendChatMessage(String input){
+        String[] inputArray = input.split(" ");
+
+        try {
+            if (inputArray[0].equals("/all")) {
+                input = loginController.getUsername() + ": " + input.substring(5);
+                udpBuffer = input.getBytes();
+                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1234);
+                udpSocket.send(udpPacket);
+                System.out.println("Message sent!");
+            } else {
+                System.out.println("Invalid Message format");
+            }
+        }catch (IOException e){
             e.printStackTrace();
         }
     }
@@ -101,16 +165,6 @@ public class ClientCommunicationController {
             System.out.println((String)socketIn.readObject());
         } catch (Exception e){
             System.out.println("WaitTillGameReady() error");
-            e.printStackTrace();
-        }
-    }
-
-    // Gives hit or stand decision to server
-    public void hitOrStand(){
-        try {
-            String input = (String) loginController.getLoginView().promptHitOrStand();
-            socketOut.writeObject(input);
-        }catch (IOException e){
             e.printStackTrace();
         }
     }
