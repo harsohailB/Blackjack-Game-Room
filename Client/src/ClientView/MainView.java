@@ -1,6 +1,6 @@
 package ClientView;
 
-
+import java.io.IOException;
 import java.util.Scanner;
 
 public class MainView{
@@ -22,6 +22,12 @@ public class MainView{
         }while(!input.equals("hit") && !input.equals("stand"));
 
         return input;
+    }
+
+    public void promptPressEnter(){
+        System.out.println("Press \"ENTER\" to continue...");
+        Scanner scanner = new Scanner(System.in);
+        scanner.nextLine();
     }
 
 }

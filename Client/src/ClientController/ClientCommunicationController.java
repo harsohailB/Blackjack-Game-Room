@@ -80,8 +80,8 @@ public class ClientCommunicationController extends Thread{
             while (true) {
                 String input = (String) socketIn.readObject();
                 switch (input){
-                    case "table":
-                        receiveTable();
+                    case "welcome":
+                        welcomeAdvance();
                         break;
                     case "turn":
                         System.out.println("Hit or Stand:");
@@ -89,12 +89,17 @@ public class ClientCommunicationController extends Thread{
                         break;
                     default:
                         System.out.println(input);
+                        break;
                 }
             }
         }catch (Exception e) {
             System.out.println("communicate() error");
             e.printStackTrace();
         }
+    }
+
+    public void welcomeAdvance(){
+        mainGUIController.getMainView().promptPressEnter();
     }
 
     public void sendMessagesToServer() throws IOException{

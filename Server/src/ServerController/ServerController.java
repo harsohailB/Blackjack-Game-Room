@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import ServerModel.Player;
 import ServerView.*;
 
 /**
@@ -86,8 +87,13 @@ public class ServerController {
         while(true){
             try {
                 udpSocket.receive(udpPacket);
-                msg = new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
+                msg = "**************New Chat Message**************\n";
+                msg += new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
+                msg += "\n********************************************";
                 System.out.println(msg);
+                for(ServerCommunicationController scc: playerControllers){
+                    scc.send(msg);
+                }
                 receiveBuffer = new byte[65535];
             }catch (IOException e){
                 e.printStackTrace();
@@ -135,9 +141,7 @@ public class ServerController {
     public void sendTableToAllPlayers(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
-            playerController.send("table");
             playerController.send(s);
-            // TODO not updating with bets (player reference???)
             playerController.sendAccountBalance();
         }
     }
@@ -148,6 +152,25 @@ public class ServerController {
             sendToAllPlayers("ready");
         }else{
             sendToAllPlayers("Waiting for players");
+        }
+    }
+
+    public void sendWelcomeMessage(Player p){
+        String welcomeMessage =   "**********************************************\n"
+                                + "*************Welcome to Blackjack!************\n"
+                                + "**********************************************\n"
+                                + "- Game will start when lobby is filled\n"
+                                + "- Type '/all' to chat\n"
+                                + "- Give hit or stand decision when prompted\n"
+                                + "**********************************************\n"
+                                + "******************* G L H F*******************\n"
+                                + "**********************************************\n";
+        ServerCommunicationController scc;
+        for(int i = 0; i < playerControllers.size(); i++){
+            scc = playerControllers.get(i);
+            if(scc.getPlayer() == p){
+                scc.send(welcomeMessage);
+            }
         }
     }
 

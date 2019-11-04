@@ -89,6 +89,8 @@ public class ServerCommunicationController implements Runnable{
                     serverController.getDealerController().addPlayer(player);
                     serverController.getDealerController().displayTable();
 
+                    serverController.sendWelcomeMessage(player);
+
                     serverController.updatePlayers();
                     serverController.notifyPlayersIfReady();
                     return;
@@ -135,5 +137,9 @@ public class ServerCommunicationController implements Runnable{
             System.out.println("ServerCommController: send() error");
             e.printStackTrace();
         }
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

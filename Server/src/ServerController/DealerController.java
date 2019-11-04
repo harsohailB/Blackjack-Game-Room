@@ -135,11 +135,13 @@ public class DealerController {
         ArrayList<Integer> playerIndices;
         playerIndices = blackjackGame.dealerBust();
         if(playerIndices.size() != 0){
+            System.out.println("Dealer Bust...");
             for(Integer i: playerIndices) {
                 p = blackjackGame.getPlayers().get(i);
                 serverController.sendToPlayer("Dealer Bust: You win!", i);
                 serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
             }
+            return;
         }
 
         playerIndices = blackjackGame.payWinners();

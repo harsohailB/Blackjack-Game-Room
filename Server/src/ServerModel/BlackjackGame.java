@@ -111,6 +111,7 @@ public class BlackjackGame {
                 player = players.get(i);
                 if(player.isInGame()){
                     playerIndices.add(i);
+                    player.addBalance(player.getBet() * 2);
                 }
             }
         }
@@ -150,6 +151,7 @@ public class BlackjackGame {
             player = players.get(i);
             if(player.isInGame()) {
                 if (didPlayerWin(player)) {
+                    player.addBalance(player.getBet() * 2);
                     winnerIndices.add(i);
                 }
             }
