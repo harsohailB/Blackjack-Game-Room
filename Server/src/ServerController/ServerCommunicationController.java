@@ -113,13 +113,18 @@ public class ServerCommunicationController implements Runnable, Constants {
         while(!serverController.getDealerController().getBlackjackGame().isReady()){
             // wait until game is ready
         }
+        String playersReady = "Players Ready!";
+        System.out.println(playersReady);
+        serverController.sendToAllPlayers(playersReady);
     }
 
     // Starts game
     public void startGame(){
-        System.out.println("Game Starting");
+        String gameStartingMsg = "Game Starting!";
+        System.out.println(gameStartingMsg);
+        serverController.sendToAllPlayers(gameStartingMsg);
         serverController.getDealerController().getBlackjackGame().resetTable();
-        send(serverController.getDealerController().getTable());
+        serverController.sendToAllPlayers(serverController.getDealerController().getTable());
         serverController.getDealerController().runGame();
     }
 
@@ -149,7 +154,7 @@ public class ServerCommunicationController implements Runnable, Constants {
         for(int i = seconds; i > 0; i--){
             timerMsg = "Game starting in " + i + " seconds!";
             System.out.println(timerMsg);
-            send(timerMsg);
+            serverController.sendToAllPlayers(timerMsg);
             try {
                 Thread.sleep(1000);
             }catch (InterruptedException e){
