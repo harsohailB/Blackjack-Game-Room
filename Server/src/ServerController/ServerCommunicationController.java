@@ -11,7 +11,7 @@ import java.net.Socket;
  * This class is responsible for communicating with the client
  */
 
-public class ServerCommunicationController implements Runnable, Messages{
+public class ServerCommunicationController implements Runnable, Constants {
 
     // Sockets
     private Socket aSocket;
@@ -41,8 +41,11 @@ public class ServerCommunicationController implements Runnable, Messages{
     public void run(){
         createUniqueInputStream();
         verifyLogin();
-        waitUntilReady();
-        startGame();
+        while(true) {
+            waitUntilReady();
+            timer(5);
+            startGame();
+        }
     }
 
     // Creates a unique input stream from the player
@@ -115,6 +118,8 @@ public class ServerCommunicationController implements Runnable, Messages{
     // Starts game
     public void startGame(){
         System.out.println("Game Starting");
+        serverController.getDealerController().getBlackjackGame().resetTable();
+        send(serverController.getDealerController().getTable());
         serverController.getDealerController().runGame();
     }
 
@@ -136,6 +141,20 @@ public class ServerCommunicationController implements Runnable, Messages{
         }catch (IOException e){
             System.out.println("ServerCommController: send() error");
             e.printStackTrace();
+        }
+    }
+
+    public void timer(int seconds){
+        String timerMsg;
+        for(int i = seconds; i > 0; i--){
+            timerMsg = "Game starting in " + i + " seconds!";
+            System.out.println(timerMsg);
+            send(timerMsg);
+            try {
+                Thread.sleep(1000);
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
         }
     }
 

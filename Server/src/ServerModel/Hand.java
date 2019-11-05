@@ -2,7 +2,7 @@ package ServerModel;
 
 import java.util.ArrayList;
 
-public class Hand implements CARD_INFO{
+public class Hand implements CardInfo {
 
     private ArrayList<Card> cards;
 
@@ -61,6 +61,10 @@ public class Hand implements CARD_INFO{
 
     public void reset(){
         cards.clear();
+    }
+
+    public void clear(){
+        cards = new ArrayList<>();
     }
 
     public ArrayList<Card> getCards() {

@@ -3,7 +3,7 @@ package ServerModel;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Deck implements CARD_INFO{
+public class Deck implements CardInfo {
 
     private ArrayList<Card> cards;
 

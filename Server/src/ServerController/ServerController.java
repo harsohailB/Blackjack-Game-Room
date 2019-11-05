@@ -3,7 +3,6 @@ package ServerController;
 import java.io.IOException;
 import java.net.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -16,7 +15,7 @@ import ServerView.*;
  * object is delegated to a new thread as well as a new client
  */
 
-public class ServerController implements Messages{
+public class ServerController implements Constants {
 
     // Server Socket
     private static final int TCP_PORT = 9000;

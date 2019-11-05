@@ -1,12 +1,12 @@
 package ServerView;
 
-import ServerController.Messages;
+import ServerController.Constants;
 import ServerModel.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DealerView implements Messages {
+public class DealerView implements Constants {
 
     private Scanner scanner;
 

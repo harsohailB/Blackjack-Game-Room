@@ -1,6 +1,6 @@
 package ServerController;
 
-public interface Messages {
+public interface Constants {
 
     static final String BREAK_LINE =      "**********************************************";
     static final String NEW_CHAT_HEADER = "*************** New Chat Message *************";

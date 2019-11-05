@@ -3,12 +3,9 @@ package ServerController;
 import ServerModel.*;
 import ServerView.DealerView;
 
-import javax.swing.*;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 
-public class DealerController implements Messages{
+public class DealerController implements Constants {
 
     private DealerView dealerView;
     private ServerController serverController;
@@ -38,7 +35,6 @@ public class DealerController implements Messages{
         blackjackGame.payNaturals();
         dealSecondRound();
         distributeWinnings();
-        endGame();
     }
 
     public void endGame(){

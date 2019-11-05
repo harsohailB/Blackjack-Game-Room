@@ -95,10 +95,6 @@ public class ClientCommunicationController extends Thread{
         }
     }
 
-    public void welcomeAdvance(){
-        mainGUIController.getMainView().promptPressEnter();
-    }
-
     public void sendMessagesToServer() throws IOException{
         Scanner scanner = new Scanner(System.in);
         InetAddress ip = InetAddress.getLocalHost();

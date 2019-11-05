@@ -1,6 +1,6 @@
 package ServerModel;
 
-public interface CARD_INFO {
+public interface CardInfo {
 
     static final char HEARTS = (char)'\u2764';
     static final char SPADES = (char)'\u2660';

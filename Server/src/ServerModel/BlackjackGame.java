@@ -71,6 +71,13 @@ public class BlackjackGame {
         }
     }
 
+    public void resetTable(){
+        deck = new Deck();
+        for(Player player: players){
+            player.getHand().clear();
+        }
+    }
+
     // Return game status
     public boolean isGameInPlay(){
         return true;
