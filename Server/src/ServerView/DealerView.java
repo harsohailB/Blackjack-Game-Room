@@ -1,11 +1,12 @@
 package ServerView;
 
+import ServerController.Messages;
 import ServerModel.*;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
-public class DealerView{
+public class DealerView implements Messages {
 
     private Scanner scanner;
 
@@ -13,17 +14,13 @@ public class DealerView{
         scanner = new Scanner(System.in);
     }
 
-   public String displayTable(ArrayList<Player> players){
-       String result = showLine() + "\n";
+   public String getTableView(ArrayList<Player> players){
+       String result = BREAK_LINE + "\n";
        for(int i = 0; i < players.size(); i++) {
            result += displayPlayer(players.get(i)) + "\n";
        }
-       result += showLine();
+       result += BREAK_LINE;
        return result;
-   }
-
-   public String showLine(){
-       return "**************************";
    }
 
    public String displayPlayer(Player player){

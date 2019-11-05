@@ -101,8 +101,8 @@ public class BlackjackGame {
         player.addBalance(payment);
     }
 
-    public ArrayList<Integer> dealerBust(){
-        ArrayList<Integer> playerIndices = new ArrayList<>();
+    public ArrayList<Player> dealerBust(){
+        ArrayList<Player> playersInGame = new ArrayList<>();
         Player dealer = players.get(0);
         Player player;
 
@@ -110,29 +110,29 @@ public class BlackjackGame {
             for(int i = 1; i < players.size(); i++){
                 player = players.get(i);
                 if(player.isInGame()){
-                    playerIndices.add(i);
+                    playersInGame.add(player);
                     player.addBalance(player.getBet() * 2);
                 }
             }
         }
 
-        return playerIndices;
+        return playersInGame;
     }
 
-    public ArrayList<Integer> chargeLosers(){
-        ArrayList<Integer> loserIndices = new ArrayList<>();
+    public ArrayList<Player> chargeLosers(){
+        ArrayList<Player> loserPlayers = new ArrayList<>();
         Player player;
 
         for(int i = 1; i < players.size(); i++){
             player = players.get(i);
             if(player.isInGame()) {
                 if (!didPlayerWin(player)) {
-                    loserIndices.add(i);
+                    loserPlayers.add(player);
                 }
             }
         }
 
-        return loserIndices;
+        return loserPlayers;
     }
 
     public boolean didPlayerWin(Player player){
@@ -143,8 +143,8 @@ public class BlackjackGame {
         return false;
     }
 
-    public ArrayList<Integer> payWinners(){
-        ArrayList<Integer> winnerIndices = new ArrayList<>();
+    public ArrayList<Player> payWinners(){
+        ArrayList<Player> winnerPlayers = new ArrayList<>();
         Player player;
 
         for(int i = 1; i < players.size(); i++){
@@ -152,12 +152,12 @@ public class BlackjackGame {
             if(player.isInGame()) {
                 if (didPlayerWin(player)) {
                     player.addBalance(player.getBet() * 2);
-                    winnerIndices.add(i);
+                    winnerPlayers.add(player);
                 }
             }
         }
 
-        return winnerIndices;
+        return winnerPlayers;
     }
 
     // Getters and Setters

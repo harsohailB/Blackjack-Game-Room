@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class DealerController {
+public class DealerController implements Messages{
 
     private DealerView dealerView;
     private ServerController serverController;
@@ -47,11 +47,12 @@ public class DealerController {
 
     public void dealFirstRound(){
         Player turnPlayer = blackjackGame.getTurnPlayer();
+        int firstRoundCardCount = 2;
 
-        while(!turnPlayer.isCardCount(2)){
+        while(!turnPlayer.isCardCount(firstRoundCardCount)){
             dealerView.promptDeal();
 
-            if(turnPlayer.getName().equals("dealer") && turnPlayer.isCardCount(0)){
+            if(turnPlayer.isDealer() && turnPlayer.isCardCount(0)){
                 blackjackGame.dealCardToPlayer(turnPlayer, false);
             }else {
                 blackjackGame.dealCardToPlayer(turnPlayer, true);
@@ -74,9 +75,10 @@ public class DealerController {
 
         while(playersDealt < totalPlayers) {
             dealerView.displayMessage("Dealing Next Player: " + turnPlayer.getName());
-            if (!turnPlayer.getName().equals("dealer") && turnPlayer.isInGame()) {
+            if (!turnPlayer.isDealer() && turnPlayer.isInGame()) {
                 playPlayerTurn(turnPlayer);
-            } else {
+            }
+            if(turnPlayer.isDealer()){
                 dealerTurn(turnPlayer);
             }
 
@@ -105,9 +107,9 @@ public class DealerController {
         String playerResponse;
 
         do {
-            serverController.sendToPlayer("turn", blackjackGame.getTurn());
+            serverController.sendToPlayer(TURN, turnPlayer);
             playerResponse = serverController.receiveFromPlayer(blackjackGame.getTurn());
-            if (playerResponse.equals("hit")) {
+            if (playerResponse.equals(HIT)) {
                 dealerView.displayMessage(turnPlayer.getName() + " hits:");
                 blackjackGame.hitPlayer(turnPlayer);
 
@@ -115,10 +117,10 @@ public class DealerController {
                 serverController.updatePlayers();
                 displayTable();
                 if(blackjackGame.kickIfBusts(turnPlayer)){
-                    serverController.sendToPlayer("You lose...", blackjackGame.getTurn());
+                    serverController.sendToPlayer("You lose...", turnPlayer);
                 }
             }
-        }while(!playerResponse.equals("stand") && turnPlayer.isInGame());
+        }while(!playerResponse.equals(STAND) && turnPlayer.isInGame());
 
         serverController.updatePlayers();
         displayTable();
@@ -132,33 +134,29 @@ public class DealerController {
         Player p;
 
         // Notify players in game that dealer busted
-        ArrayList<Integer> playerIndices;
-        playerIndices = blackjackGame.dealerBust();
-        if(playerIndices.size() != 0){
+        ArrayList<Player> players = blackjackGame.dealerBust();
+        if(players.size() != 0){
             System.out.println("Dealer Bust...");
-            for(Integer i: playerIndices) {
-                p = blackjackGame.getPlayers().get(i);
-                serverController.sendToPlayer("Dealer Bust: You win!", i);
-                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
+            for(Player player: players) {
+                serverController.sendToPlayer("Dealer Bust: You win!", player);
+                serverController.sendToPlayer("Ending Balance: " + player.getBalance(), player);
             }
             return;
         }
 
-        playerIndices = blackjackGame.payWinners();
-        if(playerIndices.size() != 0){
-            for(Integer i: playerIndices) {
-                p = blackjackGame.getPlayers().get(i);
-                serverController.sendToPlayer("You win!", i);
-                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
+        players = blackjackGame.payWinners();
+        if(players.size() != 0){
+            for(Player player: players) {
+                serverController.sendToPlayer("You win!", player);
+                serverController.sendToPlayer("Ending Balance: " + player.getBalance(), player);
             }
         }
 
-        playerIndices = blackjackGame.chargeLosers();
-        if(playerIndices.size() != 0){
-            for(Integer i: playerIndices) {
-                p = blackjackGame.getPlayers().get(i);
-                serverController.sendToPlayer("You lose! Dealer Wins...", i);
-                serverController.sendToPlayer("Ending Balance: " + p.getBalance(), i);
+        players = blackjackGame.chargeLosers();
+        if(players.size() != 0){
+            for(Player player: players) {
+                serverController.sendToPlayer("You lose! Dealer Wins...", player);
+                serverController.sendToPlayer("Ending Balance: " + player.getBalance(), player);
             }
         }
     }
@@ -169,11 +167,11 @@ public class DealerController {
     }
 
     public void displayTable(){
-        System.out.println(dealerView.displayTable(blackjackGame.getPlayers()));
+        System.out.println(dealerView.getTableView(blackjackGame.getPlayers()));
     }
 
     public String getTable(){
-        return dealerView.displayTable(blackjackGame.getPlayers());
+        return dealerView.getTableView(blackjackGame.getPlayers());
     }
 
     public void addPlayer(Player p){

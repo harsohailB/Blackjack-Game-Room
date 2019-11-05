@@ -11,7 +11,7 @@ import java.net.Socket;
  * This class is responsible for communicating with the client
  */
 
-public class ServerCommunicationController implements Runnable{
+public class ServerCommunicationController implements Runnable, Messages{
 
     // Sockets
     private Socket aSocket;
@@ -82,7 +82,7 @@ public class ServerCommunicationController implements Runnable{
 
                 player = serverController.getDealerController().validatePlayerLogin(username, password);
                 if (player != null) {
-                    send("verified");
+                    send(VERIFIED);
                     System.out.println("Login Success!");
                     verified = true;
 

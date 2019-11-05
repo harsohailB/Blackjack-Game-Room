@@ -26,6 +26,13 @@ public class Player {
         return false;
     }
 
+    public boolean isDealer(){
+        if(username.equals("dealer")){
+            return true;
+        }
+        return false;
+    }
+
     public boolean isInGame(){
         return inGame;
     }

@@ -16,7 +16,7 @@ import ServerView.*;
  * object is delegated to a new thread as well as a new client
  */
 
-public class ServerController {
+public class ServerController implements Messages{
 
     // Server Socket
     private static final int PORT = 9000;
@@ -48,7 +48,7 @@ public class ServerController {
 
             System.out.println("Server is running");
             printIPInfo();
-            System.out.println("********");
+            System.out.println(BREAK_LINE);
         }catch (IOException e){
             System.out.println("ServerController: Create a new socket error");
             e.printStackTrace();
@@ -87,9 +87,9 @@ public class ServerController {
         while(true){
             try {
                 udpSocket.receive(udpPacket);
-                msg = "**************New Chat Message**************\n";
+                msg = NEW_CHAT_HEADER + "\n";
                 msg += new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
-                msg += "\n********************************************";
+                msg += "\n" + BREAK_LINE;
                 System.out.println(msg);
                 for(ServerCommunicationController scc: playerControllers){
                     scc.send(msg);
@@ -116,20 +116,26 @@ public class ServerController {
     // Updates players with the Blackjack Table
     public void updatePlayers(){
         String table = dealerController.getTable();
-        sendTableToAllPlayers(table);
+        sendToAllPlayers(table);
+        sendToAllPlayers(ACCOUNT_BALANCE);
     }
 
     // Sends a string to all players
     public void sendToAllPlayers(String s){
         for(int i = 0; i < playerControllers.size(); i++){
             ServerCommunicationController playerController = playerControllers.get(i);
-            playerController.send(s);
+            if(s.equals(ACCOUNT_BALANCE)){
+                playerController.sendAccountBalance();
+            }else {
+                playerController.send(s);
+            }
         }
     }
 
     // Sends a string to a specific player
-    public void sendToPlayer(String s, int player){
-        playerControllers.get(player - 1).send(s);
+    public void sendToPlayer(String s, Player player){
+        ServerCommunicationController playerController = getPlayerController(player);
+        playerController.send(s);
     }
 
     // Receives a string from a specific player
@@ -137,41 +143,29 @@ public class ServerController {
         return playerControllers.get(player - 1).receive();
     }
 
-    // Sends table to all players
-    public void sendTableToAllPlayers(String s){
-        for(int i = 0; i < playerControllers.size(); i++){
-            ServerCommunicationController playerController = playerControllers.get(i);
-            playerController.send(s);
-            playerController.sendAccountBalance();
-        }
-    }
-
     // Notifies waiting players with game status
     public void notifyPlayersIfReady(){
         if(dealerController.getBlackjackGame().isReady()){
-            sendToAllPlayers("ready");
+            sendToAllPlayers(READY);
         }else{
-            sendToAllPlayers("Waiting for players");
+            sendToAllPlayers(WAITING_FOR_PLAYERS);
         }
     }
 
-    public void sendWelcomeMessage(Player p){
-        String welcomeMessage =   "**********************************************\n"
-                                + "*************Welcome to Blackjack!************\n"
-                                + "**********************************************\n"
-                                + "- Game will start when lobby is filled\n"
-                                + "- Type '/all' to chat\n"
-                                + "- Give hit or stand decision when prompted\n"
-                                + "**********************************************\n"
-                                + "******************* G L H F*******************\n"
-                                + "**********************************************\n";
+    public void sendWelcomeMessage(Player player){
+        ServerCommunicationController playerController = getPlayerController(player);
+        playerController.send(WELCOME_MESSAGE);
+    }
+
+    public ServerCommunicationController getPlayerController(Player player){
         ServerCommunicationController scc;
         for(int i = 0; i < playerControllers.size(); i++){
             scc = playerControllers.get(i);
-            if(scc.getPlayer() == p){
-                scc.send(welcomeMessage);
+            if(scc.getPlayer() == player){
+                return scc;
             }
         }
+        return null;
     }
 
     // Getters and Setters
