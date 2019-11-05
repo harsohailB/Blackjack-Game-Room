@@ -19,7 +19,8 @@ import ServerView.*;
 public class ServerController implements Messages{
 
     // Server Socket
-    private static final int PORT = 9000;
+    private static final int TCP_PORT = 9000;
+    private static final int UDP_PORT = 1234;
     private ServerSocket serverSocket;
     private DatagramSocket udpSocket;
     private byte[] receiveBuffer;
@@ -36,8 +37,8 @@ public class ServerController implements Messages{
     // Constructor to construct ServerController objects
     public ServerController(){
         try{
-            serverSocket = new ServerSocket(PORT);
-            udpSocket = new DatagramSocket(1234);   // change port magic number
+            serverSocket = new ServerSocket(TCP_PORT);
+            udpSocket = new DatagramSocket(UDP_PORT);   // change port magic number
             receiveBuffer = new byte[65535];
             pool = Executors.newFixedThreadPool(10);
 

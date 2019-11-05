@@ -80,9 +80,6 @@ public class ClientCommunicationController extends Thread{
             while (true) {
                 String input = (String) socketIn.readObject();
                 switch (input){
-                    case "welcome":
-                        welcomeAdvance();
-                        break;
                     case "turn":
                         System.out.println("Hit or Stand:");
                         turn = true;
