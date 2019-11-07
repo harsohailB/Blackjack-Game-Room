@@ -43,6 +43,10 @@ public class BlackjackGame {
 
     public void hitPlayer(Player p){
         dealCardToPlayer(p, true);
+    }
+
+    public void doublePlayer(Player p){
+        dealCardToPlayer(p, true);
         p.makeBet(10);
     }
 
@@ -75,12 +79,9 @@ public class BlackjackGame {
         deck = new Deck();
         for(Player player: players){
             player.getHand().clear();
+            player.resetBet();
+            player.setInGame(true);
         }
-    }
-
-    // Return game status
-    public boolean isGameInPlay(){
-        return true;
     }
 
     public void payNaturals(){

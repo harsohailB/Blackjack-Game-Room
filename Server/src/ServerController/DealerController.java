@@ -83,12 +83,14 @@ public class DealerController implements Constants {
     }
 
     public void dealerTurn(Player dealer){
+        serverController.sendToAllPlayers("Dealer's turn...");
         dealer.getHand().showHand();
         while(dealer.getHand().getValue() < 17) {
             dealerView.promptDeal();
 
             blackjackGame.dealCardToPlayer(dealer, true);
 
+            dealerView.displayMessage("Dealer's turn:");
             serverController.sendToAllPlayers("Dealer's turn:");
             serverController.updatePlayers();
             displayTable();
@@ -96,6 +98,7 @@ public class DealerController implements Constants {
     }
 
     public void playPlayerTurn(Player turnPlayer){
+        serverController.sendToAllPlayers(turnPlayer.getName() + "'s turn...");
         String playerResponse;
 
         do {
@@ -106,17 +109,30 @@ public class DealerController implements Constants {
                 blackjackGame.hitPlayer(turnPlayer);
 
                 serverController.sendToAllPlayers(turnPlayer.getName() + " hits:");
-                serverController.updatePlayers();
                 displayTable();
+                serverController.updatePlayers();
                 if(blackjackGame.kickIfBusts(turnPlayer)){
                     serverController.sendToPlayer("You lose...", turnPlayer);
                 }
             }
-        }while(!playerResponse.equals(STAND) && turnPlayer.isInGame());
+        }while(playerResponse.equals(HIT) && turnPlayer.isInGame());
+
+        if(playerResponse.equals(DOUBLE) && turnPlayer.isInGame()){
+            dealerView.displayMessage(turnPlayer.getName() + " doubles:");
+            blackjackGame.doublePlayer(turnPlayer);
+
+            serverController.sendToAllPlayers(turnPlayer.getName() + " doubles:");
+            displayTable();
+            serverController.updatePlayers();
+            if(blackjackGame.kickIfBusts(turnPlayer)){
+                serverController.sendToPlayer("You lose...", turnPlayer);
+            }
+        }else{
+            dealerView.displayMessage(turnPlayer.getName() + " stands:");
+        }
 
         serverController.updatePlayers();
         displayTable();
-        dealerView.displayMessage(turnPlayer.getName() + " stands:");
     }
 
     public void distributeWinnings(){

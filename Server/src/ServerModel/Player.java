@@ -60,6 +60,10 @@ public class Player implements Constants {
         hand.reset();
     }
 
+    public void resetBet(){
+        bet = 0;
+    }
+
     public void addBalance(double winning){
         balance += winning;
     }
@@ -124,5 +128,9 @@ public class Player implements Constants {
 
     public void setBet(int bet) {
         this.bet = bet;
+    }
+
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }
