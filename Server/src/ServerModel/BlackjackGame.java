@@ -3,6 +3,9 @@ package ServerModel;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 
+/**
+ * This class controls and updates the black jack game
+ */
 public class BlackjackGame {
 
     // Players participating in the game
@@ -11,8 +14,10 @@ public class BlackjackGame {
     // Index of players list ^ to indicate player's turn
     private int turn;
 
+    // Deck containing cards
     private Deck deck;
 
+    // Constructor
     public BlackjackGame(){
         players = new ArrayList<>();
         players.add(new Player("dealer", "dealer", Integer.MAX_VALUE));
@@ -42,10 +47,12 @@ public class BlackjackGame {
         }
     }
 
+    // Hits player by dealing a card
     public void hitPlayer(Player p){
         dealCardToPlayer(p, true);
     }
 
+    // Double player by hitting them and doubling their bet
     public void doublePlayer(Player p){
         dealCardToPlayer(p, true);
         p.makeBet(10);
@@ -76,6 +83,7 @@ public class BlackjackGame {
         }
     }
 
+    // Resets table for a new game
     public void resetTable(){
         deck = new Deck();
         for(Player player: players){
@@ -85,6 +93,7 @@ public class BlackjackGame {
         }
     }
 
+    // Pays players who got 21 on first round
     public void payNaturals(){
         Player p;
         for(int i = 1; i < players.size(); i++){
@@ -96,6 +105,7 @@ public class BlackjackGame {
         }
     }
 
+    // Kick player out of game if they go over 21
     public boolean kickIfBusts(Player p){
         if(p.isInGame() && p.getHand().hasBust()){
             p.bench();
@@ -104,12 +114,14 @@ public class BlackjackGame {
         return false;
     }
 
+    // Dealer pays player
     public void payPlayer(Player player, double payment){
         Player dealer = players.get(0);
         dealer.decreaseBalance(payment);
         player.addBalance(payment);
     }
 
+    // Dealer goes over 17 and busts
     public ArrayList<Player> dealerBust(){
         ArrayList<Player> playersInGame = new ArrayList<>();
         Player dealer = players.get(0);
@@ -128,6 +140,7 @@ public class BlackjackGame {
         return playersInGame;
     }
 
+    // Players that lose pay dealer
     public ArrayList<Player> chargeLosers(){
         ArrayList<Player> loserPlayers = new ArrayList<>();
         Player player;
@@ -144,6 +157,7 @@ public class BlackjackGame {
         return loserPlayers;
     }
 
+    // Checks if player won against dealer
     public boolean didPlayerWin(Player player){
         Player dealer = players.get(0);
         if(player.getHand().getValue() > dealer.getHand().getValue()){
@@ -152,6 +166,7 @@ public class BlackjackGame {
         return false;
     }
 
+    // Dealer pays players who won
     public ArrayList<Player> payWinners(){
         ArrayList<Player> winnerPlayers = new ArrayList<>();
         Player player;

@@ -5,18 +5,24 @@ import ServerView.DealerView;
 
 import java.util.ArrayList;
 
+/**
+ * This class acts as bridge between the blackjack game to communication with the client
+ * The dealer contorller is responsible for running the game and updating the blackjack
+ * table while displaying to the DealerView and outputting to all players
+ */
 public class DealerController implements Constants {
 
     private DealerView dealerView;
     private ServerController serverController;
 
+    // Blackjack Game
     private BlackjackGame blackjackGame;
     private Deck deck;
 
+    // Saved player Accounts
     private PlayerAccounts playerAccounts;
 
-    private Thread recvMessage;
-
+    // Constructor
     public DealerController(DealerView dv, ServerController sc){
         dealerView = dv;
         serverController = sc;
@@ -29,6 +35,7 @@ public class DealerController implements Constants {
         playerAccounts.addAccount("testt","123");
     }
 
+    // Runs game
     public void runGame(){
         takeStartingBets(10);
         dealFirstRound();
@@ -37,6 +44,7 @@ public class DealerController implements Constants {
         distributeWinnings();
     }
 
+    // Deals first round
     public void dealFirstRound(){
         Player turnPlayer = blackjackGame.getTurnPlayer();
         int firstRoundCardCount = 2;
@@ -60,6 +68,7 @@ public class DealerController implements Constants {
         dealerView.displayMessage("First Round Done!");
     }
 
+    // Deals second round
     public void dealSecondRound() {
         int playersDealt = 0;
         int totalPlayers = blackjackGame.getPlayers().size();
@@ -82,6 +91,7 @@ public class DealerController implements Constants {
         System.out.println("Second round done!");
     }
 
+    // Deals to dealer until over 17
     public void dealerTurn(Player dealer){
         serverController.sendToAllPlayers("Dealer's turn...");
         dealer.getHand().showHand();
@@ -97,6 +107,7 @@ public class DealerController implements Constants {
         }
     }
 
+    // Plays player turn by getting their decision
     public void playPlayerTurn(Player turnPlayer){
         serverController.sendToAllPlayers(turnPlayer.getName() + "'s turn...");
         String playerResponse;
@@ -135,6 +146,7 @@ public class DealerController implements Constants {
         displayTable();
     }
 
+    // Checks for winners and losers and distributes money accordingly
     public void distributeWinnings(){
         dealerView.displayMessage("Distributing Winnings and Collecting Losses");
         serverController.sendToAllPlayers("Distributing Winnings and Collecting Losses");
@@ -169,32 +181,35 @@ public class DealerController implements Constants {
         }
     }
 
+    // Sets starting bets of all players
     public void takeStartingBets(int bet){
         blackjackGame.takeStartingBet(bet);
         serverController.sendToAllPlayers("Made default bet: 10");
     }
 
+    // Displays table to the dealer
     public void displayTable(){
         System.out.println(dealerView.getTableView(blackjackGame.getPlayers()));
     }
 
+    // Gets a string table from blackjack game object
     public String getTable(){
         return dealerView.getTableView(blackjackGame.getPlayers());
     }
 
+    // adds player to blackjack game
     public void addPlayer(Player p){
         blackjackGame.addPlayer(p);
     }
 
+    // validates player login by verifying again player accounts
     public Player validatePlayerLogin(String username, String password){
         return playerAccounts.verifyPlayer(username, password);
     }
 
+    // Getters and Setters
+
     public BlackjackGame getBlackjackGame() {
         return blackjackGame;
-    }
-
-    public DealerView getDealerView() {
-        return dealerView;
     }
 }

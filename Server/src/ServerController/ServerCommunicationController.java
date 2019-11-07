@@ -22,8 +22,10 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Player that this object is connected with
     private Player player;
 
+    // Boolean to confirm verification of client's credentials
     private boolean verified;
 
+    // Constructor
     public ServerCommunicationController(Socket s, ServerController serverController){
         try{
             aSocket = s;
@@ -45,7 +47,7 @@ public class ServerCommunicationController implements Runnable, Constants {
         createUniqueInputStream();
         verifyLogin();
         while(true) {
-            if(!player.isObserver()) {
+            if(!player.isObserver()) {  // observers only listen to msgs from server (don't participate in the game)
                 waitUntilReady();
                 timer(5);
                 startGame();
@@ -166,6 +168,7 @@ public class ServerCommunicationController implements Runnable, Constants {
         }
     }
 
+    // Prints count down timer for each second given to notify players
     public void timer(int seconds){
         String timerMsg;
         for(int i = seconds; i > 0; i--){
@@ -180,6 +183,7 @@ public class ServerCommunicationController implements Runnable, Constants {
         }
     }
 
+    // Return true if player credentials show that player is an observer
     public boolean isObserver(String username, String password){
         System.out.println(username.equals(OBSERVER));
         System.out.println(password.equals(OBSERVER_PASSWORD));
@@ -189,10 +193,12 @@ public class ServerCommunicationController implements Runnable, Constants {
         return false;
     }
 
+    // Returns true if client is verified
     public boolean isVerified(){
         return verified;
     }
 
+    // Getters and Setters
 
     public Player getPlayer() {
         return player;

@@ -1,9 +1,6 @@
 package ServerModel;
 
 import ServerController.Constants;
-import javafx.beans.Observable;
-
-import javax.swing.*;
 
 public class Player implements Constants {
 
@@ -122,13 +119,7 @@ public class Player implements Constants {
         return result;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
-
-    public void setBet(int bet) {
-        this.bet = bet;
-    }
+    // Getters and Setters
 
     public void setInGame(boolean inGame) {
         this.inGame = inGame;

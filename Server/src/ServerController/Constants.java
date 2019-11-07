@@ -1,5 +1,8 @@
 package ServerController;
 
+/**
+ * Constants interface to store string and messages that con repetitively sent
+ */
 public interface Constants {
 
     static final String BREAK_LINE =      "**********************************************";

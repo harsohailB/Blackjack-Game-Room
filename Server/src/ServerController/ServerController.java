@@ -58,6 +58,7 @@ public class ServerController implements Constants {
     // Main function which creates a server controller object
     public static void main(String[] args){
         ServerController myServer = new ServerController();
+        // Thread runs getChatMessages() server indefinetly to receive chat msgs through UDP
         Thread recvMessage = new Thread(() -> myServer.getChatMessages());
         recvMessage.start();
         myServer.communicateWithClient();
@@ -81,6 +82,7 @@ public class ServerController implements Constants {
         }
     }
 
+    // Function run indefinetly with a thread to receive chat msgs through UDP
     public void getChatMessages(){
         DatagramPacket udpPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
         String msg;
@@ -152,11 +154,13 @@ public class ServerController implements Constants {
         }
     }
 
+    // Sends a welcome message to player that connected
     public void sendWelcomeMessage(Player player){
         ServerCommunicationController playerController = getPlayerController(player);
         playerController.send(WELCOME_MESSAGE);
     }
 
+    // Return the player controller communicating with the player requested
     public ServerCommunicationController getPlayerController(Player player){
         ServerCommunicationController scc;
         for(int i = 0; i < playerControllers.size(); i++){
