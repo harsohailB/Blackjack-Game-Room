@@ -1,6 +1,11 @@
 package ServerModel;
 
-public class Player {
+import ServerController.Constants;
+import javafx.beans.Observable;
+
+import javax.swing.*;
+
+public class Player implements Constants {
 
     private String username;
     private String password;
@@ -18,6 +23,18 @@ public class Player {
         bet = 0;
         inGame = true;
         played = false;
+    }
+
+    public Player(){
+        this.username = OBSERVER;
+        this.password = OBSERVER_PASSWORD;
+        this.balance = 0;
+    }
+
+    public boolean isObserver(){
+        if(username.equals(OBSERVER))
+            return true;
+        return false;
     }
 
     public boolean isCardCount(int i){

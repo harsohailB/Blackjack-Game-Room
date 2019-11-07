@@ -104,7 +104,7 @@ public class DealerController implements Constants {
 
         do {
             serverController.sendToPlayer(TURN, turnPlayer);
-            playerResponse = serverController.receiveFromPlayer(blackjackGame.getTurn());
+            playerResponse = serverController.receiveFromPlayer(turnPlayer);
             if (playerResponse.equals(HIT)) {
                 dealerView.displayMessage(turnPlayer.getName() + " hits:");
                 blackjackGame.hitPlayer(turnPlayer);

@@ -11,7 +11,7 @@ public class LoginView{
     }
 
     public String promptUsername(){
-        System.out.println("Enter username:");
+        System.out.println("Enter username: ('observer' for observe)");
         String input = null;
 
         while (input == null) {
@@ -22,7 +22,7 @@ public class LoginView{
     }
 
     public String promptPassword(){
-        System.out.println("Enter password:");
+        System.out.println("Enter password: ('123' to observe)");
         String input = null;
 
         while (input == null) {

@@ -139,8 +139,8 @@ public class ServerController implements Constants {
     }
 
     // Receives a string from a specific player
-    public String receiveFromPlayer(int player){
-        return playerControllers.get(player - 1).receive();
+    public String receiveFromPlayer(Player player){
+        return getPlayerController(player).receive();
     }
 
     // Notifies waiting players with game status

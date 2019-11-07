@@ -22,6 +22,8 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Player that this object is connected with
     private Player player;
 
+    private boolean verified;
+
     public ServerCommunicationController(Socket s, ServerController serverController){
         try{
             aSocket = s;
@@ -30,6 +32,7 @@ public class ServerCommunicationController implements Runnable, Constants {
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 
             serverController.printIPInfo();
+            verified = false;
         }catch (IOException e){
             System.out.println("ServerCommController: Create ServerCommController Error");
             e.printStackTrace();
@@ -42,9 +45,11 @@ public class ServerCommunicationController implements Runnable, Constants {
         createUniqueInputStream();
         verifyLogin();
         while(true) {
-            waitUntilReady();
-            timer(5);
-            startGame();
+            if(!player.isObserver()) {
+                waitUntilReady();
+                timer(5);
+                startGame();
+            }
         }
     }
 
@@ -62,6 +67,7 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Receives string from player
     public String receive(){
         try {
+            System.out.println(player.getName());
             return (String)socketIn.readObject();
         }catch (Exception e){
             e.printStackTrace();
@@ -77,15 +83,13 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Verifies player login
     public void verifyLogin() {
         try {
-            boolean verified = false;
-
-            while (!verified) {
+            while (!isVerified()) {
                 String username = (String) socketIn.readObject();
                 String password = (String) socketIn.readObject();
 
                 player = serverController.getDealerController().validatePlayerLogin(username, password);
                 if (player != null) {
-                    send(VERIFIED);
+                    socketOut.writeObject(VERIFIED);
                     System.out.println("Login Success!");
                     verified = true;
 
@@ -97,8 +101,13 @@ public class ServerCommunicationController implements Runnable, Constants {
                     serverController.updatePlayers();
                     serverController.notifyPlayersIfReady();
                     return;
+                }else if(isObserver(username, password)){
+                    socketOut.writeObject(VERIFIED);
+                    System.out.println("New Observer connected!");
+                    player = new Player();
+                    verified = true;
                 } else {
-                    send("Invalid Username and Password");
+                    socketOut.writeObject("Invalid Username and Password");
                 }
 
                 socketOut.flush();
@@ -130,6 +139,10 @@ public class ServerCommunicationController implements Runnable, Constants {
 
     // Sends an object to player
     public void send(Object o){
+        if(!verified){
+            return;
+        }
+
         try {
             socketOut.writeObject(o);
         }catch (IOException e){
@@ -163,7 +176,23 @@ public class ServerCommunicationController implements Runnable, Constants {
         }
     }
 
+    public boolean isObserver(String username, String password){
+        System.out.println(username.equals(OBSERVER));
+        System.out.println(password.equals(OBSERVER_PASSWORD));
+        if(username.equals(OBSERVER) && password.equals(OBSERVER_PASSWORD)){
+            return true;
+        }
+        return false;
+    }
+
+    public boolean isVerified(){
+        return verified;
+    }
+
+
     public Player getPlayer() {
         return player;
     }
+
+
 }

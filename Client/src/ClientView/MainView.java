@@ -24,10 +24,4 @@ public class MainView{
         return input;
     }
 
-    public void promptPressEnter(){
-        System.out.println("Press \"ENTER\" to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
-    }
-
 }

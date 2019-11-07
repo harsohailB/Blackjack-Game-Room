@@ -29,7 +29,6 @@ public class LoginController extends GUIController{
                 clientCommunicationController.getSocketOut().writeObject(password);
 
                 String verification = (String) clientCommunicationController.getSocketIn().readObject();
-
                 if (verification.equals("verified")) {
                     verified = true;
                     System.out.println("User Logged In!");
