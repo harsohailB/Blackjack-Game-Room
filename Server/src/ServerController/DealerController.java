@@ -37,10 +37,6 @@ public class DealerController implements Constants {
         distributeWinnings();
     }
 
-    public void endGame(){
-        serverController.sendToAllPlayers("Ending Game...");
-    }
-
     public void dealFirstRound(){
         Player turnPlayer = blackjackGame.getTurnPlayer();
         int firstRoundCardCount = 2;

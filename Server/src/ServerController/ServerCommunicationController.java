@@ -67,7 +67,6 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Receives string from player
     public String receive(){
         try {
-            System.out.println(player.getName());
             return (String)socketIn.readObject();
         }catch (Exception e){
             e.printStackTrace();
