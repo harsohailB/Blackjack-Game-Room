@@ -19,27 +19,25 @@ sudo apt-get install git-core
 git clone https://github.com/harsohailB/Blackjack-Game-Room.git
 ```
 
-5. Change directory to project directory (either client or server)
+5. Change directory to the directory which contains the .jar file(either client or server)
 
 ```
-cd Blackjack-Game-Room/Client
-cd Blackjack-Game-Room/Server
+Server:
+cd /home/ubuntu/Blackjack-Game-Room/Server/out/artifacts/Server_jar
+Client:
+cd /home/ubuntu/Blackjack-Game-Room/Client/out/artifacts/Client_jar
 ```
 
-6. Compile all java files to create .class files
+6. Run the jar file
 
 ```
-javac *.java
+Server:
+java -jar Server.jar
+Client:
+java -jar Client.jar
 ```
 
-7. Run java program using the .class file that contains the main funciton
-
-```
-java ServerController
-java ClientCommnicationController
-```
-
-8. Program running!
+7. Program running!
 
 ### Note 
 
@@ -48,3 +46,4 @@ java ClientCommnicationController
 **Client:** the client program prompts for the server when you the program
 
 * Please enter the server given IP to the client to connect!
+* If server is running on the same machine as the client, 'localhost' can be used instead of IP of server
