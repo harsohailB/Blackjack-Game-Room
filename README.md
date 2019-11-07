@@ -40,3 +40,11 @@ java ClientCommnicationController
 ```
 
 8. Program running!
+
+### Note 
+
+**Server:** the server program prints its IP when you run the program
+
+**Client:** the client program prompts for the server when you the program
+
+* Please enter the server given IP to the client to connect!
