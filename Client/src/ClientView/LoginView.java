@@ -32,6 +32,19 @@ public class LoginView{
         return input;
     }
 
+    public static String promptIP(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter IP of Blackjack Game Room:");
+        String input = null;
+
+        while(input == null){
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
+
     public Scanner getScanner() {
         return scanner;
     }

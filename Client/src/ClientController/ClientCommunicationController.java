@@ -57,7 +57,8 @@ public class ClientCommunicationController extends Thread{
 
     // Connects to blackjack server
     public static void main(String[] args){
-        ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
+        String ip = LoginView.promptIP();
+        ClientCommunicationController ccc = new ClientCommunicationController(ip, 9000);
         ccc.communicate();
     }
 
