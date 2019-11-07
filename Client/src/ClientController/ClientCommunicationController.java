@@ -58,7 +58,7 @@ public class ClientCommunicationController extends Thread{
     // Connects to blackjack server
     public static void main(String[] args){
         String ip = LoginView.promptIP();
-        ClientCommunicationController ccc = new ClientCommunicationController(ip, 9000);
+        ClientCommunicationController ccc = new ClientCommunicationController(ip, 8000);
         ccc.communicate();
     }
 
@@ -137,7 +137,7 @@ public class ClientCommunicationController extends Thread{
             if (inputArray[0].equals("/all")) {
                 input = loginController.getUsername() + ": " + input.substring(5);
                 udpBuffer = input.getBytes();
-                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1234);
+                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1235);
                 udpSocket.send(udpPacket);
                 System.out.println("Message sent!");
             } else {

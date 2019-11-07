@@ -18,8 +18,8 @@ import ServerView.*;
 public class ServerController implements Constants {
 
     // Server Socket
-    private static final int TCP_PORT = 9000;
-    private static final int UDP_PORT = 1234;
+    private static final int TCP_PORT = 8000;
+    private static final int UDP_PORT = 1235;
     private ServerSocket serverSocket;
     private DatagramSocket udpSocket;
     private byte[] receiveBuffer;

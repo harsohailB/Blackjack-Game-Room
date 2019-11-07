@@ -1,12 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Server:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="30a173c0-05d4-4d9f-8889-23169b2f7810" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/artifacts/Server_jar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../BlackJackUML.mdj" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/ClientCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/ClientCommunicationController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/10_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/10_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/10_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/10_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/2_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/2_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/2_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/2_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/3_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/3_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/3_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/3_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/4_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/4_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/4_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/4_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/5_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/5_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/5_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/5_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/6_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/6_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/6_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/6_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/7_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/7_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/7_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/7_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/8_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/8_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/8_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/8_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/9_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/9_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/9_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/9_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/ace_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/ace_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/ace_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/ace_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/jack_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/jack_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/jack_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/jack_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/king_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/king_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/king_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/king_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/queen_of_clubs.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/queen_of_diamonds.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/queen_of_hearts.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/utils/CardPics/queen_of_spades.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -28,8 +87,9 @@
   <component name="ProjectId" id="1SnU0KZ6LNBPrZEp8gYqhRNp3Ji" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ServerView" />
-    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.last.edited" value="Artifacts" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
   </component>
