@@ -2,9 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="30a173c0-05d4-4d9f-8889-23169b2f7810" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../BlackJackUML.mdj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/LoginView.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientView/LoginView.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerController/DealerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/DealerController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" afterDir="false" />
     </list>
