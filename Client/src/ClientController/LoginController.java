@@ -34,7 +34,7 @@ public class LoginController extends GUIController{
                     System.out.println("User Logged In!");
                     this.username = username;
                 } else {
-                    System.out.println("Invalid Username or Password. Try again");
+                    System.out.println("Invalid Username or Password or user already logged in. Try again");
                 }
 
                 clientCommunicationController.getSocketOut().flush();

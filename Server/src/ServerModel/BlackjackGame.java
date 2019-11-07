@@ -23,6 +23,7 @@ public class BlackjackGame {
     // Adds new player to game
     public void addPlayer(Player p){
         players.add(p);
+        p.setInGame(true);
     }
 
     // Deals a card to player

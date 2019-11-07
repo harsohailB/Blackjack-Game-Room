@@ -168,16 +168,6 @@ public class ClientCommunicationController extends Thread{
         }
     }
 
-    // Receives table from server to display
-    public void receiveTable(){
-        try {
-            System.out.println((String)socketIn.readObject());
-        } catch (Exception e){
-            System.out.println("WaitTillGameReady() error");
-            e.printStackTrace();
-        }
-    }
-
     // Getters and Setters
 
     public ObjectOutputStream getSocketOut() {

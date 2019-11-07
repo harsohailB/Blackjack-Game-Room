@@ -21,7 +21,7 @@ public class Player implements Constants {
         this.balance = balance;
         hand = new Hand();
         bet = 0;
-        inGame = true;
+        inGame = false;
         played = false;
     }
 
