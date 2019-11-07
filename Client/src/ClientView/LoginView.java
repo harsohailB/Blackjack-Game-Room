@@ -11,7 +11,7 @@ public class LoginView{
     }
 
     public String promptUsername(){
-        System.out.println("Enter username: ('observer' for observe)");
+        System.out.println("Enter username: ('observer' to observe)");
         String input = null;
 
         while (input == null) {

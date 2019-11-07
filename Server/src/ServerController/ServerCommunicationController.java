@@ -99,13 +99,7 @@ public class ServerCommunicationController implements Runnable, Constants {
                     System.out.println("Login Success!");
                     verified = true;
 
-                    serverController.getDealerController().addPlayer(player);
-                    serverController.getDealerController().displayTable();
-
-                    serverController.sendWelcomeMessage(player);
-
-                    serverController.updatePlayers();
-                    serverController.notifyPlayersIfReady();
+                    addNewPlayer(player);
                     return;
                 }else if(isObserver(username, password)){
                     socketOut.writeObject(VERIFIED);
@@ -113,7 +107,13 @@ public class ServerCommunicationController implements Runnable, Constants {
                     player = new Player();
                     verified = true;
                 } else {
-                    socketOut.writeObject("Invalid Username and Password");
+                    Player newPlayer = new Player(username, password, 200);
+                    verified = true;
+                    socketOut.writeObject(VERIFIED);
+                    player = newPlayer;
+                    System.out.println("New Player Account Created!");
+                    socketOut.writeObject("New Player Account Created!");
+                    addNewPlayer(newPlayer);
                 }
 
                 socketOut.flush();
@@ -121,6 +121,16 @@ public class ServerCommunicationController implements Runnable, Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addNewPlayer(Player newPlayer){
+        serverController.getDealerController().addPlayer(newPlayer);
+        serverController.getDealerController().displayTable();
+        System.out.println("hi");
+        serverController.sendWelcomeMessage(newPlayer);
+
+        serverController.updatePlayers();
+        serverController.notifyPlayersIfReady();
     }
 
     // A while loop to wait until game is ready to start
