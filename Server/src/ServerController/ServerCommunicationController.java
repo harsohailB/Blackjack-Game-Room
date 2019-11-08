@@ -126,7 +126,6 @@ public class ServerCommunicationController implements Runnable, Constants {
     public void addNewPlayer(Player newPlayer){
         serverController.getDealerController().addPlayer(newPlayer);
         serverController.getDealerController().displayTable();
-        System.out.println("hi");
         serverController.sendWelcomeMessage(newPlayer);
 
         serverController.updatePlayers();
@@ -195,8 +194,6 @@ public class ServerCommunicationController implements Runnable, Constants {
 
     // Return true if player credentials show that player is an observer
     public boolean isObserver(String username, String password){
-        System.out.println(username.equals(OBSERVER));
-        System.out.println(password.equals(OBSERVER_PASSWORD));
         if(username.equals(OBSERVER) && password.equals(OBSERVER_PASSWORD)){
             return true;
         }
