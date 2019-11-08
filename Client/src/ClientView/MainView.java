@@ -11,23 +11,17 @@ public class MainView{
         scanner = new Scanner(System.in);
     }
 
-    public String promptHitOrStand(){
+    public String promptMakeDecision(){
         scanner = new Scanner(System.in);
         String input = null;
 
         do{
-            System.out.println("Hit or Stand:");
+            System.out.println("Hit or Stand or Double:");
             input = scanner.nextLine();
             input = input.toLowerCase();
-        }while(!input.equals("hit") && !input.equals("stand"));
+        }while(!input.equals("hit") && !input.equals("stand") && !input.equals("double"));
 
         return input;
-    }
-
-    public void promptPressEnter(){
-        System.out.println("Press \"ENTER\" to continue...");
-        Scanner scanner = new Scanner(System.in);
-        scanner.nextLine();
     }
 
 }

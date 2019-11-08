@@ -1,5 +1,8 @@
 package ServerController;
 
+/**
+ * Constants interface to store string and messages that con repetitively sent
+ */
 public interface Constants {
 
     static final String BREAK_LINE =      "**********************************************";
@@ -20,5 +23,8 @@ public interface Constants {
     static final String TURN = "turn";
     static final String HIT = "hit";
     static final String STAND = "stand";
+    static final String DOUBLE = "double";
+    static final String OBSERVER = "observer";
+    static final String OBSERVER_PASSWORD = "123";
 
 }

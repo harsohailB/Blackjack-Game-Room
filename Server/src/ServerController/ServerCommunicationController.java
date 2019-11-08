@@ -22,6 +22,10 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Player that this object is connected with
     private Player player;
 
+    // Boolean to confirm verification of client's credentials
+    private boolean verified;
+
+    // Constructor
     public ServerCommunicationController(Socket s, ServerController serverController){
         try{
             aSocket = s;
@@ -30,6 +34,7 @@ public class ServerCommunicationController implements Runnable, Constants {
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 
             serverController.printIPInfo();
+            verified = false;
         }catch (IOException e){
             System.out.println("ServerCommController: Create ServerCommController Error");
             e.printStackTrace();
@@ -42,9 +47,11 @@ public class ServerCommunicationController implements Runnable, Constants {
         createUniqueInputStream();
         verifyLogin();
         while(true) {
-            waitUntilReady();
-            timer(5);
-            startGame();
+            if(!player.isObserver()) {  // observers only listen to msgs from server (don't participate in the game)
+                waitUntilReady();
+                timer(5);
+                startGame();
+            }
         }
     }
 
@@ -77,28 +84,36 @@ public class ServerCommunicationController implements Runnable, Constants {
     // Verifies player login
     public void verifyLogin() {
         try {
-            boolean verified = false;
-
-            while (!verified) {
+            while (!isVerified()) {
                 String username = (String) socketIn.readObject();
                 String password = (String) socketIn.readObject();
 
                 player = serverController.getDealerController().validatePlayerLogin(username, password);
                 if (player != null) {
-                    send(VERIFIED);
+                    if(player.isInGame()){
+                        socketOut.writeObject("Player already logged in...");
+                        continue;
+                    }
+
+                    socketOut.writeObject(VERIFIED);
                     System.out.println("Login Success!");
                     verified = true;
 
-                    serverController.getDealerController().addPlayer(player);
-                    serverController.getDealerController().displayTable();
-
-                    serverController.sendWelcomeMessage(player);
-
-                    serverController.updatePlayers();
-                    serverController.notifyPlayersIfReady();
+                    addNewPlayer(player);
                     return;
+                }else if(isObserver(username, password)){
+                    socketOut.writeObject(VERIFIED);
+                    System.out.println("New Observer connected!");
+                    player = new Player();
+                    verified = true;
                 } else {
-                    send("Invalid Username and Password");
+                    Player newPlayer = new Player(username, password, 200);
+                    verified = true;
+                    socketOut.writeObject(VERIFIED);
+                    player = newPlayer;
+                    System.out.println("New Player Account Created!");
+                    socketOut.writeObject("New Player Account Created!");
+                    addNewPlayer(newPlayer);
                 }
 
                 socketOut.flush();
@@ -106,6 +121,15 @@ public class ServerCommunicationController implements Runnable, Constants {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void addNewPlayer(Player newPlayer){
+        serverController.getDealerController().addPlayer(newPlayer);
+        serverController.getDealerController().displayTable();
+        serverController.sendWelcomeMessage(newPlayer);
+
+        serverController.updatePlayers();
+        serverController.notifyPlayersIfReady();
     }
 
     // A while loop to wait until game is ready to start
@@ -130,6 +154,10 @@ public class ServerCommunicationController implements Runnable, Constants {
 
     // Sends an object to player
     public void send(Object o){
+        if(!verified){
+            return;
+        }
+
         try {
             socketOut.writeObject(o);
         }catch (IOException e){
@@ -149,6 +177,7 @@ public class ServerCommunicationController implements Runnable, Constants {
         }
     }
 
+    // Prints count down timer for each second given to notify players
     public void timer(int seconds){
         String timerMsg;
         for(int i = seconds; i > 0; i--){
@@ -163,7 +192,24 @@ public class ServerCommunicationController implements Runnable, Constants {
         }
     }
 
+    // Return true if player credentials show that player is an observer
+    public boolean isObserver(String username, String password){
+        if(username.equals(OBSERVER) && password.equals(OBSERVER_PASSWORD)){
+            return true;
+        }
+        return false;
+    }
+
+    // Returns true if client is verified
+    public boolean isVerified(){
+        return verified;
+    }
+
+    // Getters and Setters
+
     public Player getPlayer() {
         return player;
     }
+
+
 }

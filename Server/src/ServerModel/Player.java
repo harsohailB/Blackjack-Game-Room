@@ -1,6 +1,8 @@
 package ServerModel;
 
-public class Player {
+import ServerController.Constants;
+
+public class Player implements Constants {
 
     private String username;
     private String password;
@@ -16,8 +18,20 @@ public class Player {
         this.balance = balance;
         hand = new Hand();
         bet = 0;
-        inGame = true;
+        inGame = false;
         played = false;
+    }
+
+    public Player(){
+        this.username = OBSERVER;
+        this.password = OBSERVER_PASSWORD;
+        this.balance = 0;
+    }
+
+    public boolean isObserver(){
+        if(username.equals(OBSERVER))
+            return true;
+        return false;
     }
 
     public boolean isCardCount(int i){
@@ -41,6 +55,10 @@ public class Player {
         inGame = false;
         bet = 0;
         hand.reset();
+    }
+
+    public void resetBet(){
+        bet = 0;
     }
 
     public void addBalance(double winning){
@@ -101,11 +119,9 @@ public class Player {
         return result;
     }
 
-    public void setBalance(double balance) {
-        this.balance = balance;
-    }
+    // Getters and Setters
 
-    public void setBet(int bet) {
-        this.bet = bet;
+    public void setInGame(boolean inGame) {
+        this.inGame = inGame;
     }
 }

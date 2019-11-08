@@ -57,7 +57,8 @@ public class ClientCommunicationController extends Thread{
 
     // Connects to blackjack server
     public static void main(String[] args){
-        ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
+        String ip = LoginView.promptIP();
+        ClientCommunicationController ccc = new ClientCommunicationController(ip, 8000);
         ccc.communicate();
     }
 
@@ -67,6 +68,7 @@ public class ClientCommunicationController extends Thread{
     public void communicate(){
         loginController.loginListen();
         waitTillGameReady();
+        // This thread runs the sendMessagesToServer() function
         Thread sendMessage = new Thread(() -> {
             try {
                 sendMessagesToServer();
@@ -79,9 +81,12 @@ public class ClientCommunicationController extends Thread{
         try {
             while (true) {
                 String input = (String) socketIn.readObject();
+                // switch statement responsible for changing boolean to
+                // manage the sendMessagesToServer() threaded function
+                // for specific inputs
                 switch (input){
                     case "turn":
-                        System.out.println("Hit or Stand:");
+                        System.out.println("Hit or Stand or Double:");
                         turn = true;
                         break;
                     default:
@@ -95,23 +100,28 @@ public class ClientCommunicationController extends Thread{
         }
     }
 
+    // This function is run on a thread beside the communicate function
+    // to incorporate chat messages to be sent alongside player decisions
+    // for the game
     public void sendMessagesToServer() throws IOException{
         Scanner scanner = new Scanner(System.in);
         InetAddress ip = InetAddress.getLocalHost();
         String input = "";
 
+        // Forever while loop that either sends player decisions if requested
+        // by server or prompts user for chat messages '/all'
         while(true){
-            if(turn){
-                while(!input.equals("hit") && !input.equals("stand")) {
-                    input = mainGUIController.getMainView().promptHitOrStand();
+            if(turn){           // if player's turn then make hit or stand decision
+                while(!input.equals("hit") && !input.equals("stand") && !input.equals("double")) {
+                    input = mainGUIController.getMainView().promptMakeDecision();
                 }
                 socketOut.writeObject(input);
                 turn = false;
-            }else {
+            }else {             // otherwise, wait for chat input
                 System.out.println("Enter message with '/all':");
                 input = scanner.nextLine();
 
-                if(turn) {
+                if(turn) {      // if server requires decision
                     continue;   // directed to "Hit or Stand" input
                 }
 
@@ -127,7 +137,7 @@ public class ClientCommunicationController extends Thread{
             if (inputArray[0].equals("/all")) {
                 input = loginController.getUsername() + ": " + input.substring(5);
                 udpBuffer = input.getBytes();
-                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1234);
+                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1235);
                 udpSocket.send(udpPacket);
                 System.out.println("Message sent!");
             } else {
@@ -148,19 +158,10 @@ public class ClientCommunicationController extends Thread{
                         System.out.println("Game Starting");
                         return;
                     default:
+                        // Updated table when another player joins lobby
                         System.out.println(input);
                 }
             }
-        } catch (Exception e){
-            System.out.println("WaitTillGameReady() error");
-            e.printStackTrace();
-        }
-    }
-
-    // Receives table from server to display
-    public void receiveTable(){
-        try {
-            System.out.println((String)socketIn.readObject());
         } catch (Exception e){
             System.out.println("WaitTillGameReady() error");
             e.printStackTrace();
