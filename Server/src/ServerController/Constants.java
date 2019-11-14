@@ -27,5 +27,9 @@ public interface Constants {
     static final String RAISE = "raise";
     static final String OBSERVER = "observer";
     static final String OBSERVER_PASSWORD = "123";
+    static final String PING = "ping";
+    static final String CHECK = "check";
+    static final String PASSED = "passed";
+    static final String FAILED = "failed";
 
 }

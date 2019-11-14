@@ -3,6 +3,7 @@ package ClientController;
 import ClientView.*;
 
 import javax.swing.*;
+import java.io.IOException;
 
 public class LoginController extends GUIController{
 
@@ -35,6 +36,9 @@ public class LoginController extends GUIController{
                     verified = true;
                     System.out.println("User Logged In!");
                     this.username = username;
+                    if(!username.equals("observer")){
+                        verified = verifyPing();
+                    }
                 } else {
                     System.out.println("Invalid Username or Password or user already logged in. Try again");
                 }
@@ -44,6 +48,24 @@ public class LoginController extends GUIController{
                 f.printStackTrace();
             }
         }
+    }
+
+    public boolean verifyPing(){
+        try {
+            clientCommunicationController.getSocketIn().readObject();
+            clientCommunicationController.getSocketOut().writeObject("check");
+
+            String serverResponse = (String)clientCommunicationController.getSocketIn().readObject();
+            if(serverResponse.equals("passed")){
+                System.out.println("Ping test passed!");
+                return true;
+            }else{
+                System.out.println("Ping test failed... Try again...");
+            }
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
+        }
+        return false;
     }
 
     // Getters and setters

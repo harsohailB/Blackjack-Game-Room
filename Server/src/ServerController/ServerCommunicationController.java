@@ -98,9 +98,8 @@ public class ServerCommunicationController implements Runnable, Constants {
 
                     socketOut.writeObject(VERIFIED);
                     System.out.println("Login Success!");
-                    verified = true;
-
-                    addNewPlayer(player);
+                    if(verifyPing())
+                        addNewPlayer(player);
                     return;
                 }else if(isObserver(username, password)){
                     socketOut.writeObject(VERIFIED);
@@ -114,7 +113,8 @@ public class ServerCommunicationController implements Runnable, Constants {
                     player = newPlayer;
                     System.out.println("New Player Account Created!");
                     socketOut.writeObject("New Player Account Created!");
-                    addNewPlayer(newPlayer);
+                    if(verifyPing())
+                        addNewPlayer(newPlayer);
                 }
 
                 socketOut.flush();
@@ -197,6 +197,30 @@ public class ServerCommunicationController implements Runnable, Constants {
     public boolean isObserver(String username, String password){
         if(username.equals(OBSERVER) && password.equals(OBSERVER_PASSWORD)){
             return true;
+        }
+        return false;
+    }
+
+    public boolean verifyPing(){
+        try {
+            socketOut.writeObject(PING);
+            long start = System.currentTimeMillis();
+            socketIn.readObject();
+            //timer(1); // to simulate ping delay
+            long end = System.currentTimeMillis();
+            long ping = end - start;
+            System.out.print(player.getName() + "ping: " + ping);
+            if(ping < 50){
+                System.out.print(" PASSED!\n");
+                socketOut.writeObject(PASSED);
+                return true;
+            }else{
+                System.out.print(" FAILED...\n");
+                socketOut.writeObject(FAILED);
+                return false;
+            }
+        }catch (IOException | ClassNotFoundException e){
+            e.printStackTrace();
         }
         return false;
     }
