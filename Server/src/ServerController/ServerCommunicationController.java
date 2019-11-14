@@ -29,15 +29,14 @@ public class ServerCommunicationController implements Runnable{
     @Override
     public void run(){
         createUniqueInputStream();
-        // TODO tasks before communication
-        String name = getPlayerName();
-        serverController.getDealerController().addPlayer(name);
+        verifyLogin();
         communicate();
     }
 
     public void communicate(){
         while(true){
             // TODO forever loop to listen to client requests
+
         }
     }
 
@@ -61,5 +60,30 @@ public class ServerCommunicationController implements Runnable{
 
     public void setServerController(ServerController serverController) {
         this.serverController = serverController;
+    }
+
+    public void verifyLogin() {
+        try {
+            boolean verified = false;
+
+            while (!verified) {
+                String username = (String) socketIn.readObject();
+                String password = (String) socketIn.readObject();
+
+                if (serverController.getDealerController().validatePlayerLogin(username, password)) {
+                    socketOut.writeObject("verified");
+                    System.out.println("Login Success!");
+                    verified = true;
+                    serverController.getDealerController().addPlayer(username); // change name to username after login
+                    return;
+                } else {
+                    socketOut.writeObject("Invalid Username and Password");
+                }
+
+                socketOut.flush();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -14,42 +14,26 @@ public class DealerView extends JFrame{
     // TODO add features accordingly
     JPanel topPanel, dealerPanel, playerCardPanel;
 
-    JButton hitButton, dealButton, stayButton;
+    JButton startGameButton;
 
-    JPanel player1Panel, player2Panel, player3Panel, player4Panel;
-
+    ArrayList<JPanel> seatPanels;
 
     public DealerView() {
         topPanel = new JPanel();
         playerCardPanel = new JPanel();
-        hitButton = new JButton();
-        dealButton = new JButton();
-        stayButton = new JButton();
-        dealerPanel = new JPanel();
-        player1Panel = new JPanel();
-        player2Panel = new JPanel();
-        player3Panel = new JPanel();
-        player4Panel = new JPanel();
+        startGameButton = new JButton();
 
+        dealerPanel = new JPanel();
+        dealerPanel.add(new JLabel("Dealer:"));
+
+        seatPanels = new ArrayList<>();
+        createSeatPanels();
+        addSeatPanelsToGUI();
 
         topPanel.setLayout(new FlowLayout());
-        dealButton.setText("Deal");
-        hitButton.setText("Hit");
-        stayButton.setText("Stay");
+        startGameButton.setText("Start Game");
 
-        dealerPanel.add(new JLabel("Dealer:"));
-        player1Panel.add(new JLabel("Player 1:"));
-        player2Panel.add(new JLabel("Player 2:"));
-        player3Panel.add(new JLabel("Player 3:"));
-        player4Panel.add(new JLabel("Player 4:"));
-
-        topPanel.add(dealButton);
-        topPanel.add(hitButton);
-        topPanel.add(stayButton);
-        playerCardPanel.add(player1Panel);
-        playerCardPanel.add(player2Panel);
-        playerCardPanel.add(player3Panel);
-        playerCardPanel.add(player4Panel);
+        topPanel.add(startGameButton);
 
         setLayout(new BorderLayout());
         add(topPanel, BorderLayout.NORTH);
@@ -66,28 +50,37 @@ public class DealerView extends JFrame{
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     }
 
-    public void updateCard(Card card, JPanel panel){
-        panel.add(new JLabel(card.getImageIcon()));
+    public void updatePlayerSeats(ArrayList<Player> players){
+        // update players
+        for(int i = 0; i < seatPanels.size(); i++){
+            seatPanels.get(i).removeAll();
+        }
+
+        for(int i = 0; i < players.size(); i++){
+            seatPanels.get(i).add(new JLabel(players.get(i).getName()));
+            for(int j = 0; j < players.get(i).getHand().getCards().size(); i++){
+                seatPanels.get(i).add(new JLabel(players.get(i).getHand().getCards().get(j).getImageIcon()));
+            }
+        }
         revalidate();
     }
 
+    // Player seat creation
+    public void createSeatPanels(){
+        for(int i = 0; i < 4; i++){
+            seatPanels.add(new JPanel());
+        }
+    }
+
+    public void addSeatPanelsToGUI(){
+        for(int i = 0; i < seatPanels.size(); i++){
+            playerCardPanel.add(seatPanels.get(i));
+        }
+    }
+
+    // Getters and Setters
+
     public JPanel getDealerPanel() {
         return dealerPanel;
-    }
-
-    public JPanel getPlayer1Panel() {
-        return player1Panel;
-    }
-
-    public JPanel getPlayer2Panel() {
-        return player2Panel;
-    }
-
-    public JPanel getPlayer3Panel() {
-        return player3Panel;
-    }
-
-    public JPanel getPlayer4Panel() {
-        return player4Panel;
     }
 }

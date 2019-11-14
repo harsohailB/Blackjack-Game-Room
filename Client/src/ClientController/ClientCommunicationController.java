@@ -31,7 +31,7 @@ public class ClientCommunicationController {
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 
             MainView mainView = new MainView();
-            LoginView loginView = new LoginView();
+            LoginView loginView = new LoginView(250, 200);
 
             loginController = new LoginController(loginView, this);
             mainGUIController = new MainGUIController(mainView, this);
@@ -42,28 +42,33 @@ public class ClientCommunicationController {
     }
 
     public static void main(String[] args){
-        // TODO commented out for testing purposes
-//        Scanner inputScanner = new Scanner(System.in);
-//        System.out.println("Enter IP of Blackjack Room:");
-//        String inputIP = inputScanner.nextLine();
-//        System.out.println("Enter PORT of Blackjack Room:");
-//        int inputPort = Integer.parseInt(inputScanner.nextLine());
-//
-//        ClientCommunicationController ccc = new ClientCommunicationController(inputIP, inputPort);
-
         ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
+        ccc.communicate();
+    }
 
-        System.out.println("Enter name:");
-        Scanner input = new Scanner(System.in);
-        String name = input.nextLine();
-        try {
-            ccc.socketOut.writeObject(name);
-        }catch (IOException e){
-            e.printStackTrace();
-        }
+    public void communicate(){
+        displayMainView();
         while(true){
 
         }
     }
 
+    public void displayMainView(){
+        while(true) {
+            System.out.println("waiting");
+           if(loginController.isVerified())
+               break;
+        }
+        mainGUIController.getMainView().display();
+    }
+
+    // Getters and Setters
+
+    public ObjectOutputStream getSocketOut() {
+        return socketOut;
+    }
+
+    public ObjectInputStream getSocketIn() {
+        return socketIn;
+    }
 }

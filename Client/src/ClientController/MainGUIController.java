@@ -14,4 +14,9 @@ public class MainGUIController extends GUIController {
         // add action listeners
     }
 
+    // Getters and setters
+
+    public MainView getMainView() {
+        return mainView;
+    }
 }

@@ -9,6 +9,9 @@ public class BlackjackGame {
 
     public BlackjackGame(){
         players = new ArrayList<>();
+        for(int i = 0; i < 4; i++){
+            players.add(new Player(null));
+        }
         deck = new Deck();
     }
 
@@ -16,11 +19,11 @@ public class BlackjackGame {
         return deck;
     }
 
+    // Getters and Setters
+
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-    public Player getPlayer(int i){
-        return players.get(i);
-    }
+
 }

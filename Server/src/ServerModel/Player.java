@@ -17,4 +17,8 @@ public class Player {
     public Hand getHand() {
         return hand;
     }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }
