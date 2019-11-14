@@ -1,8 +1,11 @@
 package ServerModel;
 
-import java.util.HashMap;
+import ServerController.Constants;
 
-public class PlayerAccounts {
+import java.util.HashMap;
+import java.util.Map;
+
+public class PlayerAccounts implements Constants {
 
     HashMap<String, Player> players;
 
@@ -26,6 +29,21 @@ public class PlayerAccounts {
 
     public void addAccount(String username, String password){
         players.put(username, new Player(username, password, 200));
+    }
+
+    public String getLeaderboard(){
+        String leaderboard = BREAK_LINE + "\n";
+        Player player;
+        String key;
+
+        for(Map.Entry<String, Player> entry: players.entrySet()){
+            key = entry.getKey();
+            player = players.get(key);
+            leaderboard += player.getStats() + "\n";
+        }
+
+        leaderboard += BREAK_LINE;
+        return leaderboard;
     }
 
 }

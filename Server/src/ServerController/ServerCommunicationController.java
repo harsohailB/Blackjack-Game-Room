@@ -89,9 +89,10 @@ public class ServerCommunicationController implements Runnable, Constants {
                 String password = (String) socketIn.readObject();
 
                 player = serverController.getDealerController().validatePlayerLogin(username, password);
+
                 if (player != null) {
-                    if(player.isInGame()){
-                        socketOut.writeObject("Player already logged in...");
+                    if(player.isBlacklisted() || player.isInGame()){
+                        socketOut.writeObject("Try again!");
                         continue;
                     }
 

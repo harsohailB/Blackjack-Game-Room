@@ -3,6 +3,7 @@ package ServerController;
 import ServerModel.*;
 import ServerView.DealerView;
 
+import java.nio.file.LinkPermission;
 import java.util.ArrayList;
 
 /**
@@ -33,6 +34,7 @@ public class DealerController implements Constants {
         // TODO Predefined Accounts
         playerAccounts.addAccount("test", "123");
         playerAccounts.addAccount("testt","123");
+        playerAccounts.addAccount("blacklisted", "123");
     }
 
     // Runs game
@@ -50,7 +52,11 @@ public class DealerController implements Constants {
         int firstRoundCardCount = 2;
 
         while(!turnPlayer.isCardCount(firstRoundCardCount)){
-            dealerView.promptDeal();
+            String[] input;
+            do {
+                input = dealerView.promptDealer();
+                dealerDecision(input);
+            }while(!input[0].equals("deal"));
 
             if(turnPlayer.isDealer() && turnPlayer.isCardCount(0)){
                 blackjackGame.dealCardToPlayer(turnPlayer, false);
@@ -96,7 +102,11 @@ public class DealerController implements Constants {
         serverController.sendToAllPlayers("Dealer's turn...");
         dealer.getHand().showHand();
         while(dealer.getHand().getValue() < 17) {
-            dealerView.promptDeal();
+            String[] input;
+            do {
+                input = dealerView.promptDealer();
+                dealerDecision(input);
+            }while(!input[0].equals("deal"));
 
             blackjackGame.dealCardToPlayer(dealer, true);
 
@@ -115,6 +125,7 @@ public class DealerController implements Constants {
         do {
             serverController.sendToPlayer(TURN, turnPlayer);
             playerResponse = serverController.receiveFromPlayer(turnPlayer);
+
             if (playerResponse.equals(HIT)) {
                 dealerView.displayMessage(turnPlayer.getName() + " hits:");
                 blackjackGame.hitPlayer(turnPlayer);
@@ -207,9 +218,43 @@ public class DealerController implements Constants {
         return playerAccounts.verifyPlayer(username, password);
     }
 
+    public void dealerDecision(String[] input){
+        String dealerInput = input[0];
+        switch (dealerInput){
+            case "deal":
+            case "start":
+                return;
+            case "help":
+                dealerView.displayMenu();
+                break;
+            case "/blacklist":
+                blacklist(input[1]);
+                break;
+            case "leaderboard":
+                System.out.println(playerAccounts.getLeaderboard());
+                break;
+            default:
+                System.out.println("Invalid Command");
+        }
+    }
+
+    public void blacklist(String playerName){
+        Player player = playerAccounts.getPlayer(playerName);
+        if(player == null){
+            System.out.println("Player "+ playerName + " doesn't exist");
+        }else{
+            System.out.println(playerName + " blacklisted!");
+            player.setBlacklisted(true);
+        }
+    }
+
     // Getters and Setters
 
     public BlackjackGame getBlackjackGame() {
         return blackjackGame;
+    }
+
+    public DealerView getDealerView() {
+        return dealerView;
     }
 }

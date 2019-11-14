@@ -35,19 +35,24 @@ public class DealerView implements Constants {
    }
 
    // Prompts dealer to deal
-   public void promptDeal(){
-       String input = null;
+   public String[] promptDealer(){
+       String[] input = null;
 
-       do{
-           System.out.println("Type 'deal' to deal card to next player:");
-           input = scanner.nextLine();
-           input = input.toLowerCase();
-       }while(!input.equals("deal"));
+       System.out.println("Please give your input: (or Type 'help' for menu commands)");
+       return scanner.nextLine().toLowerCase().split(" ");
    }
 
    // Displays a string object to dealer
    public void displayMessage(String s){
        System.out.println(s);
+   }
+
+   public void displayMenu(){
+       System.out.println("'deal' to deal a card to the next player");
+       System.out.println("'help' to display help menu");
+       System.out.println("'/blacklist <player name>' to blacklist players from server");
+       System.out.println("'start' to start server");
+       System.out.println("'leaderboard' to view player stats in a leaderboard format");
    }
 
 }

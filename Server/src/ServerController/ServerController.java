@@ -70,6 +70,7 @@ public class ServerController implements Constants {
     // given to a new thread to run
     public void communicateWithClient(){
         try{
+            promptStartGame();
             while(true){
                 ServerCommunicationController scc = new ServerCommunicationController(serverSocket.accept(), this);
                 playerControllers.add(scc);
@@ -170,6 +171,15 @@ public class ServerController implements Constants {
             }
         }
         return null;
+    }
+
+    public void promptStartGame(){
+        String[] input;
+        do {
+            input = dealerController.getDealerView().promptDealer();
+            dealerController.dealerDecision(input);
+        }while(!input[0].equals("start"));
+        System.out.println("Starting server!");
     }
 
     // Getters and Setters

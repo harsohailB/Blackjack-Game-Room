@@ -10,7 +10,7 @@ public class Player implements Constants {
     private double balance;
     private double bet;
     private boolean inGame;
-    private boolean played;
+    private boolean blacklisted;
 
     public Player(String username, String password, int balance){
         this.username = username;
@@ -19,7 +19,7 @@ public class Player implements Constants {
         hand = new Hand();
         bet = 0;
         inGame = false;
-        played = false;
+        blacklisted = false;
     }
 
     public Player(){
@@ -119,9 +119,21 @@ public class Player implements Constants {
         return result;
     }
 
+    public String getStats(){
+        return username + " Account Balance: " + balance;
+    }
+
     // Getters and Setters
 
     public void setInGame(boolean inGame) {
         this.inGame = inGame;
+    }
+
+    public void setBlacklisted(boolean blacklisted) {
+        this.blacklisted = blacklisted;
+    }
+
+    public boolean isBlacklisted() {
+        return blacklisted;
     }
 }

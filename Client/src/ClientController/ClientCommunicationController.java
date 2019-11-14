@@ -67,7 +67,6 @@ public class ClientCommunicationController extends Thread{
     // Finally: Forever while loop to listen and interact with server using switch statement
     public void communicate(){
         loginController.loginListen();
-        waitTillGameReady();
         // This thread runs the sendMessagesToServer() function
         Thread sendMessage = new Thread(() -> {
             try {
@@ -77,6 +76,8 @@ public class ClientCommunicationController extends Thread{
             }
         });
         sendMessage.start();
+
+        waitTillGameReady();
 
         try {
             while (true) {
@@ -89,6 +90,10 @@ public class ClientCommunicationController extends Thread{
                         System.out.println("Hit or Stand or Double:");
                         turn = true;
                         break;
+                    case "raise":
+                        String raise = (String) socketIn.readObject();
+                        System.out.println("Call " + raise + " to hit or Stand");
+                        turn = true;
                     default:
                         System.out.println(input);
                         break;
