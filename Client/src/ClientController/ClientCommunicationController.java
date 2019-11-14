@@ -68,14 +68,16 @@ public class ClientCommunicationController extends Thread{
     public void communicate(){
         loginController.loginListen();
         // This thread runs the sendMessagesToServer() function
-        Thread sendMessage = new Thread(() -> {
-            try {
-                sendMessagesToServer();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
-        sendMessage.start();
+        if(!loginController.isObserver()) {
+            Thread sendMessage = new Thread(() -> {
+                try {
+                    sendMessagesToServer();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            });
+            sendMessage.start();
+        }
 
         waitTillGameReady();
 
@@ -135,26 +137,45 @@ public class ClientCommunicationController extends Thread{
         }
     }
 
+    // Public Message format: all <sender username> : <msg content>
+    // Private Message format: <reciever username> <sender username> : <msg content>
     public void sendChatMessage(String input){
+        if(input.charAt(0) != '/'){
+            System.out.println("Invalid Message format");
+            return;
+        }
+
         String[] inputArray = input.split(" ");
+        String allOrUsername = inputArray[0].substring(1);
+
+        boolean publicMsg = false;
+        if(allOrUsername.equals("all")){
+            publicMsg = true;
+        }else{
+            publicMsg = false;
+        }
 
         try {
-            if (inputArray[0].equals("/all")) {
-                input = loginController.getUsername() + ": " + input.substring(5);
-                udpBuffer = input.getBytes();
-                DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1235);
-                udpSocket.send(udpPacket);
-                System.out.println("Message sent!");
-            } else {
-                System.out.println("Invalid Message format");
+            if (publicMsg) { // public message
+                input = "all " + loginController.getUsername() + " : " + input.substring(5);
+            } else { // private message
+                input = allOrUsername + " " + loginController.getUsername() + " : ";
+                for(int i = 1; i < inputArray.length; i++){
+                    input += inputArray[i] + " ";
+                }
             }
+
+            udpBuffer = input.getBytes();
+            DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1235);
+            udpSocket.send(udpPacket);
+            System.out.println("Message sent!");
         }catch (IOException e){
             e.printStackTrace();
         }
     }
 
     // Receives updates from server while waiting for game to start
-    public void waitTillGameReady(){
+    public void waitTillGameReady() {
         try {
             while (true) {
                 String input = (String) socketIn.readObject();
@@ -167,11 +188,12 @@ public class ClientCommunicationController extends Thread{
                         System.out.println(input);
                 }
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             System.out.println("WaitTillGameReady() error");
             e.printStackTrace();
         }
     }
+
 
     // Getters and Setters
 

@@ -98,8 +98,9 @@ public class ServerCommunicationController implements Runnable, Constants {
 
                     socketOut.writeObject(VERIFIED);
                     System.out.println("Login Success!");
-                    if(verifyPing())
-                        addNewPlayer(player);
+                    verified = true;
+
+                    addNewPlayer(player);
                     return;
                 }else if(isObserver(username, password)){
                     socketOut.writeObject(VERIFIED);
@@ -111,10 +112,9 @@ public class ServerCommunicationController implements Runnable, Constants {
                     verified = true;
                     socketOut.writeObject(VERIFIED);
                     player = newPlayer;
-                    if(verifyPing())
-                        addNewPlayer(newPlayer);
                     System.out.println("New Player Account Created!");
                     socketOut.writeObject("New Player Account Created!");
+                    addNewPlayer(newPlayer);
                 }
 
                 socketOut.flush();

@@ -184,6 +184,16 @@ public class BlackjackGame {
         return winnerPlayers;
     }
 
+    public Player getPlayer(String username){
+        Player player;
+        for(int i = 0; i < players.size(); i++){
+            player = players.get(i);
+            if(player.getName().equals(username))
+                return player;
+        }
+        return null;
+    }
+
     // Getters and Setters
 
     public ArrayList<Player> getPlayers() {

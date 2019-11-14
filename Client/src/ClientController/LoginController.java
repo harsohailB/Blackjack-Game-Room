@@ -36,9 +36,6 @@ public class LoginController extends GUIController{
                     verified = true;
                     System.out.println("User Logged In!");
                     this.username = username;
-                    if(!username.equals("observer")){
-                        verified = verifyPing();
-                    }
                 } else {
                     System.out.println("Invalid Username or Password or user already logged in. Try again");
                 }
@@ -79,5 +76,12 @@ public class LoginController extends GUIController{
 
     public boolean isVerified() {
         return verified;
+    }
+
+    public boolean isObserver(){
+        if(username.equals("observer")){
+            return true;
+        }
+        return false;
     }
 }

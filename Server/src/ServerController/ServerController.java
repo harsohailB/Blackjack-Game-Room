@@ -86,22 +86,59 @@ public class ServerController implements Constants {
     // Function run indefinetly with a thread to receive chat msgs through UDP
     public void getChatMessages(){
         DatagramPacket udpPacket = new DatagramPacket(receiveBuffer, receiveBuffer.length);
-        String msg;
         while(true){
             try {
                 udpSocket.receive(udpPacket);
-                msg = NEW_CHAT_HEADER + "\n";
-                msg += new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
-                msg += "\n" + BREAK_LINE;
+                String content = new String(udpPacket.getData(), udpPacket.getOffset(), udpPacket.getLength());
+                String[] contentArray = content.split(" ");
+                String msg = createMessage(contentArray);
                 System.out.println(msg);
-                for(ServerCommunicationController scc: playerControllers){
-                    scc.send(msg);
+                if(contentArray[0].equals("all")) {
+                    for (ServerCommunicationController scc : playerControllers) {
+                        scc.send(msg);
+                    }
+                }else{
+                    String senderUsername = contentArray[1];
+                    String recvUsername = contentArray[0];
+                    if(verifyPrivateMessage(senderUsername, recvUsername)) {
+                        sendToPlayer(msg, dealerController.getBlackjackGame().getPlayer(recvUsername));
+                    }
                 }
                 receiveBuffer = new byte[65535];
             }catch (IOException e){
                 e.printStackTrace();
             }
         }
+    }
+
+    public boolean verifyPrivateMessage(String senderUsername, String recvUsername){
+        Player recvPlayer = dealerController.getBlackjackGame().getPlayer(recvUsername);
+        Player senderPlayer = dealerController.getBlackjackGame().getPlayer(senderUsername);
+        if(recvPlayer == null){
+            sendToPlayer("Player with username " + recvUsername + " doesn't exist... Message not delivered...", senderPlayer);
+            return false;
+        }
+
+        return true;
+    }
+
+    public String createMessage(String[] contentArray){
+        String message = NEW_CHAT_HEADER + "\n";
+
+        if(contentArray[0].equals("all")){
+            for(int i = 1; i < contentArray.length; i++){
+                message += contentArray[i] + " ";
+            }
+        }else{
+            String username = contentArray[0];
+            message += "PRIVATE : ";
+            for(int i = 1; i < contentArray.length; i++){
+                message += contentArray[i] + " ";
+            }
+        }
+
+        message += "\n" + BREAK_LINE;
+        return message;
     }
 
     // Prints IP Info of the server
@@ -149,6 +186,7 @@ public class ServerController implements Constants {
     // Notifies waiting players with game status
     public void notifyPlayersIfReady(){
         if(dealerController.getBlackjackGame().isReady()){
+            System.out.println("notifying ready");
             sendToAllPlayers(READY);
         }else{
             sendToAllPlayers(WAITING_FOR_PLAYERS);
