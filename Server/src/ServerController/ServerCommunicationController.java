@@ -111,10 +111,10 @@ public class ServerCommunicationController implements Runnable, Constants {
                     verified = true;
                     socketOut.writeObject(VERIFIED);
                     player = newPlayer;
-                    System.out.println("New Player Account Created!");
-                    socketOut.writeObject("New Player Account Created!");
                     if(verifyPing())
                         addNewPlayer(newPlayer);
+                    System.out.println("New Player Account Created!");
+                    socketOut.writeObject("New Player Account Created!");
                 }
 
                 socketOut.flush();
