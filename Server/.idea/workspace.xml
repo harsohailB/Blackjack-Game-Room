@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="ArtifactsWorkspaceSettings">
+    <artifacts-to-build>
+      <artifact name="Server:jar" />
+    </artifacts-to-build>
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="30a173c0-05d4-4d9f-8889-23169b2f7810" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../BlackJackUML.mdj" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/ClientCommunicationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/LoginController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/MainGUIController.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/MainGUIController.class" afterDir="false" />
@@ -13,6 +19,7 @@
       <change beforePath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientView/LoginView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../Client/src/ClientView/MainView.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientView/MainView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+<<<<<<< HEAD
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/BlackjackGame.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/BlackjackGame.class" afterDir="false" />
@@ -24,6 +31,21 @@
       <change beforePath="$PROJECT_DIR$/src/ServerModel/BlackjackGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/BlackjackGame.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerModel/Hand.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Hand.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ServerModel/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Player.java" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/Constants.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/Constants.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/DealerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/Player.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerModel/PlayerAccounts.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerModel/PlayerAccounts.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/Server/ServerView/DealerView.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerView/DealerView.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/Constants.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/Constants.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/DealerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/DealerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/ServerController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/Player.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerModel/PlayerAccounts.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerModel/PlayerAccounts.java" afterDir="false" />
+>>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
       <change beforePath="$PROJECT_DIR$/src/ServerView/DealerView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerView/DealerView.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -35,8 +57,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -46,7 +68,11 @@
   <component name="ProjectId" id="1SnU0KZ6LNBPrZEp8gYqhRNp3Ji" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/src/ServerView" />
+    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -74,7 +100,7 @@
       <module name="Server" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="ServerController.*" />
+          <option name="PATTERN" value="ServerController.Constants" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>

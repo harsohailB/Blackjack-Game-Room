@@ -1,5 +1,6 @@
 package ClientView;
 
+<<<<<<< HEAD
 import javax.swing.*;
 import java.awt.*;
 
@@ -80,4 +81,30 @@ public class MainView extends JFrame{
     public JPanel getPlayer4Panel() {
         return player4Panel;
     }
+=======
+import java.io.IOException;
+import java.util.Scanner;
+
+public class MainView{
+
+    private Scanner scanner;
+
+    public MainView(){
+        scanner = new Scanner(System.in);
+    }
+
+    public String promptMakeDecision(){
+        scanner = new Scanner(System.in);
+        String input = null;
+
+        do{
+            System.out.println("Hit or Stand or Double:");
+            input = scanner.nextLine();
+            input = input.toLowerCase();
+        }while(!input.equals("hit") && !input.equals("stand") && !input.equals("double"));
+
+        return input;
+    }
+
+>>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 }

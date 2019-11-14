@@ -1,5 +1,6 @@
 package ClientView;
 
+<<<<<<< HEAD
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -82,4 +83,58 @@ public class LoginView extends JFrame {
         return passwordFeild;
     }
 
+=======
+import java.util.Scanner;
+
+public class LoginView{
+
+    private Scanner scanner;
+
+    public LoginView(){
+        scanner = new Scanner(System.in);
+    }
+
+    public String promptUsername(){
+        System.out.println("Enter username: ('observer' to observe)");
+        String input = null;
+
+        while (input == null) {
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
+    public String promptPassword(){
+        System.out.println("Enter password: ('123' to observe)");
+        String input = null;
+
+        while (input == null) {
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
+    public static String promptIP(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter IP of Blackjack Game Room:");
+        String input = null;
+
+        while(input == null){
+            input = scanner.nextLine();
+        }
+
+        return input;
+    }
+
+
+    public Scanner getScanner() {
+        return scanner;
+    }
+
+    public void setScanner(Scanner scanner) {
+        this.scanner = scanner;
+    }
+>>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 }

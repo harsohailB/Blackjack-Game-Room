@@ -3,7 +3,7 @@ package ServerModel;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Deck implements CARD_INFO{
+public class Deck implements CardInfo {
 
     private ArrayList<Card> cards;
 
@@ -14,50 +14,45 @@ public class Deck implements CARD_INFO{
 
     public void createCards(){
         // Clubs
-        cards.add(new Card(ACE, CLUBS, generatePath(ACE, CLUBS)));
-        cards.add(new Card(JACK, CLUBS, generatePath(JACK, CLUBS)));
-        cards.add(new Card(QUEEN, CLUBS, generatePath(QUEEN, CLUBS)));
-        cards.add(new Card(KING, CLUBS, generatePath(KING, CLUBS)));
+        cards.add(new Card(ACE, CLUBS, 11));
+        cards.add(new Card(JACK, CLUBS, 10));
+        cards.add(new Card(QUEEN, CLUBS, 10));
+        cards.add(new Card(KING, CLUBS, 10));
         for(int i = 2; i <= 10; i++){
             String val = Integer.toString(i);
-            cards.add(new Card(val, CLUBS, generatePath(val, CLUBS)));
+            cards.add(new Card(val, CLUBS, i));
         }
 
         // Diamonds
-        cards.add(new Card(ACE, DIAMONDS, generatePath(ACE, DIAMONDS)));
-        cards.add(new Card(JACK, DIAMONDS, generatePath(JACK, DIAMONDS)));
-        cards.add(new Card(QUEEN, DIAMONDS, generatePath(QUEEN, DIAMONDS)));
-        cards.add(new Card(KING, DIAMONDS, generatePath(KING, DIAMONDS)));
+        cards.add(new Card(ACE, DIAMONDS, 11));
+        cards.add(new Card(JACK, DIAMONDS, 10));
+        cards.add(new Card(QUEEN, DIAMONDS, 10));
+        cards.add(new Card(KING, DIAMONDS, 10));
         for(int i = 2; i <= 10; i++){
             String val = Integer.toString(i);
-            cards.add(new Card(val, DIAMONDS, generatePath(val, DIAMONDS)));
+            cards.add(new Card(val, DIAMONDS, i));
         }
 
         // Hearts
-        cards.add(new Card(ACE, HEARTS, generatePath(ACE, HEARTS)));
-        cards.add(new Card(JACK, HEARTS, generatePath(JACK, HEARTS)));
-        cards.add(new Card(QUEEN, HEARTS, generatePath(QUEEN, HEARTS)));
-        cards.add(new Card(KING, HEARTS, generatePath(KING, HEARTS)));
+        cards.add(new Card(ACE, HEARTS, 11));
+        cards.add(new Card(JACK, HEARTS, 10));
+        cards.add(new Card(QUEEN, HEARTS, 10));
+        cards.add(new Card(KING, HEARTS, 10));
         for(int i = 2; i <= 10; i++){
             String val = Integer.toString(i);
-            cards.add(new Card(val, HEARTS, generatePath(val, HEARTS)));
+            cards.add(new Card(val, HEARTS, i));
         }
 
         // Spades
-        cards.add(new Card(ACE, SPADES, generatePath(ACE, SPADES)));
-        cards.add(new Card(JACK, SPADES, generatePath(JACK, SPADES)));
-        cards.add(new Card(QUEEN, SPADES, generatePath(QUEEN, SPADES)));
-        cards.add(new Card(KING, SPADES, generatePath(KING, SPADES)));
+        cards.add(new Card(ACE, SPADES, 11));
+        cards.add(new Card(JACK, SPADES, 10));
+        cards.add(new Card(QUEEN, SPADES, 10));
+        cards.add(new Card(KING, SPADES, 10));
         for(int i = 2; i <= 10; i++){
             String val = Integer.toString(i);
-            cards.add(new Card(val, SPADES, generatePath(val, SPADES)));
+            cards.add(new Card(val, SPADES, i));
         }
     }
-
-    public String generatePath(String value, String suit){
-        return "/utils/CardPics/" + value + "_of_" + suit + ".png";
-    }
-
     public Card getRandomCard(){
         Random rand = new Random();
         int n = rand.nextInt(52);

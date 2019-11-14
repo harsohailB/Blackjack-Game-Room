@@ -1,7 +1,6 @@
 package ClientController;
 
 import ClientView.MainView;
-import com.sun.tools.javac.Main;
 
 public class MainGUIController extends GUIController {
 
@@ -10,8 +9,6 @@ public class MainGUIController extends GUIController {
     public MainGUIController(MainView v, ClientCommunicationController ccc){
         super(ccc);
         mainView = v;
-
-        // add action listeners
     }
 
     // Getters and setters
