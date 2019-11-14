@@ -1,33 +1,5 @@
 package ServerModel;
 
-<<<<<<< HEAD
-import java.util.HashMap;
-
-public class PlayerAccounts {
-
-    HashMap<String, String> userTable;
-
-    public PlayerAccounts(){
-        userTable = new HashMap<>();
-    }
-
-    public void addAccount(String username, String password){
-        userTable.put(username, password);
-    }
-
-    public boolean playerAccountExists(String username, String password){
-        if(userTable.containsKey(username)){
-            if(userTable.get(username).equals(password)){
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public HashMap<String, String> getUserTable() {
-        return userTable;
-    }
-=======
 import ServerController.Constants;
 
 import java.util.HashMap;
@@ -74,5 +46,4 @@ public class PlayerAccounts implements Constants {
         return leaderboard;
     }
 
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 }

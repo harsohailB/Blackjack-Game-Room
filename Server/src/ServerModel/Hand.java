@@ -14,8 +14,6 @@ public class Hand implements CardInfo {
         cards.add(card);
     }
 
-<<<<<<< HEAD
-=======
     public void showHand(){
         Card card;
         for(int i = 0; i < cards.size(); i++){
@@ -69,7 +67,6 @@ public class Hand implements CardInfo {
         cards = new ArrayList<>();
     }
 
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     public ArrayList<Card> getCards() {
         return cards;
     }

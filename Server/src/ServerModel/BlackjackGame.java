@@ -20,13 +20,7 @@ public class BlackjackGame {
     // Constructor
     public BlackjackGame(){
         players = new ArrayList<>();
-<<<<<<< HEAD
-        for(int i = 0; i < 4; i++){
-            players.add(new Player(null));
-        }
-=======
         players.add(new Player("dealer", "dealer", Integer.MAX_VALUE));
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
         deck = new Deck();
         turn = 1;
     }
@@ -111,8 +105,6 @@ public class BlackjackGame {
         }
     }
 
-<<<<<<< HEAD
-=======
     // Kick player out of game if they go over 21
     public boolean kickIfBusts(Player p){
         if(p.isInGame() && p.getHand().hasBust()){
@@ -192,16 +184,12 @@ public class BlackjackGame {
         return winnerPlayers;
     }
 
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     // Getters and Setters
 
     public ArrayList<Player> getPlayers() {
         return players;
     }
 
-<<<<<<< HEAD
-
-=======
     public Deck getDeck() {
         return deck;
     }
@@ -209,5 +197,4 @@ public class BlackjackGame {
     public int getTurn() {
         return turn;
     }
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 }

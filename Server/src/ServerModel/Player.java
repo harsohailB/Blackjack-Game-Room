@@ -83,9 +83,6 @@ public class Player implements Constants {
     }
 
     public void setName(String name) {
-<<<<<<< HEAD
-        this.name = name;
-=======
         this.username = name;
     }
 
@@ -138,6 +135,5 @@ public class Player implements Constants {
 
     public boolean isBlacklisted() {
         return blacklisted;
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     }
 }

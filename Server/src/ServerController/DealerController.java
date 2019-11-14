@@ -2,15 +2,8 @@ package ServerController;
 
 import ServerModel.*;
 import ServerView.DealerView;
-
-<<<<<<< HEAD
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-=======
 import java.nio.file.LinkPermission;
 import java.util.ArrayList;
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 
 /**
  * This class acts as bridge between the blackjack game to communication with the client
@@ -26,48 +19,16 @@ public class DealerController implements Constants {
     private BlackjackGame blackjackGame;
     private Deck deck;
 
-<<<<<<< HEAD
-    private PlayerAccounts playerAccounts;
-
-=======
     // Saved player Accounts
     private PlayerAccounts playerAccounts;
 
     // Constructor
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     public DealerController(DealerView dv, ServerController sc){
         dealerView = dv;
         serverController = sc;
 
         blackjackGame = new BlackjackGame();
         playerAccounts = new PlayerAccounts();
-<<<<<<< HEAD
-
-        // TODO Remove after testing
-        playerAccounts.addAccount("test", "123");
-
-        // TODO Add action listeners for buttons
-    }
-
-    public void addPlayer(String name){
-        for(int i = 0; i < blackjackGame.getPlayers().size(); i++){
-            Player player = blackjackGame.getPlayers().get(i);
-            if(player.getName() == null){
-                player.setName(name);
-                dealCardToPlayer(blackjackGame.getPlayers().get(i), blackjackGame.getDeck().getRandomCard());
-                break;
-            }
-        }
-        dealerView.updatePlayerSeats(blackjackGame.getPlayers());
-    }
-
-    public void dealCardToPlayer(Player player, Card card){
-        player.getHand().addCard(card);
-    }
-
-    public boolean validatePlayerLogin(String username, String password){
-        return playerAccounts.playerAccountExists(username, password);
-=======
 
         // TODO Predefined Accounts
         playerAccounts.addAccount("test", "123");
@@ -193,7 +154,6 @@ public class DealerController implements Constants {
 
         serverController.updatePlayers();
         displayTable();
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     }
 
     // Checks for winners and losers and distributes money accordingly

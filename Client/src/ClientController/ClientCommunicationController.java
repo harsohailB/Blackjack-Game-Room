@@ -40,17 +40,12 @@ public class ClientCommunicationController extends Thread{
             socketIn = new ObjectInputStream(aSocket.getInputStream());
             socketOut = new ObjectOutputStream(aSocket.getOutputStream());
 
-<<<<<<< HEAD
-            MainView mainView = new MainView();
-            LoginView loginView = new LoginView(250, 200);
-=======
             udpSocket = new DatagramSocket();
             IP = InetAddress.getLocalHost();
             turn = false;
 
             LoginView loginView = new LoginView();
             MainView mainView = new MainView();
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 
             loginController = new LoginController(loginView, this);
             mainGUIController = new MainGUIController(mainView, this);
@@ -62,14 +57,6 @@ public class ClientCommunicationController extends Thread{
 
     // Connects to blackjack server
     public static void main(String[] args){
-<<<<<<< HEAD
-        ClientCommunicationController ccc = new ClientCommunicationController("localhost", 9000);
-        ccc.communicate();
-    }
-
-    public void communicate(){
-        displayMainView();
-=======
         String ip = LoginView.promptIP();
         ClientCommunicationController ccc = new ClientCommunicationController(ip, 8000);
         ccc.communicate();
@@ -128,7 +115,6 @@ public class ClientCommunicationController extends Thread{
 
         // Forever while loop that either sends player decisions if requested
         // by server or prompts user for chat messages '/all'
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
         while(true){
             if(turn){           // if player's turn then make hit or stand decision
                 while(!input.equals("hit") && !input.equals("stand") && !input.equals("double")) {
@@ -167,15 +153,6 @@ public class ClientCommunicationController extends Thread{
         }
     }
 
-<<<<<<< HEAD
-    public void displayMainView(){
-        while(true) {
-            System.out.println("waiting");
-           if(loginController.isVerified())
-               break;
-        }
-        mainGUIController.getMainView().display();
-=======
     // Receives updates from server while waiting for game to start
     public void waitTillGameReady(){
         try {
@@ -194,7 +171,6 @@ public class ClientCommunicationController extends Thread{
             System.out.println("WaitTillGameReady() error");
             e.printStackTrace();
         }
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
     }
 
     // Getters and Setters

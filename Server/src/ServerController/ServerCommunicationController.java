@@ -46,15 +46,6 @@ public class ServerCommunicationController implements Runnable, Constants {
     public void run(){
         createUniqueInputStream();
         verifyLogin();
-<<<<<<< HEAD
-        communicate();
-    }
-
-    public void communicate(){
-        while(true){
-            // TODO forever loop to listen to client requests
-
-=======
         while(true) {
             if(!player.isObserver()) {  // observers only listen to msgs from server (don't participate in the game)
                 waitUntilReady();
@@ -72,7 +63,6 @@ public class ServerCommunicationController implements Runnable, Constants {
         } catch (IOException e) {
             System.out.println("Error creating server output stream");
             e.printStackTrace();
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
         }
     }
 
@@ -153,32 +143,6 @@ public class ServerCommunicationController implements Runnable, Constants {
         serverController.sendToAllPlayers(playersReady);
     }
 
-<<<<<<< HEAD
-    public void verifyLogin() {
-        try {
-            boolean verified = false;
-
-            while (!verified) {
-                String username = (String) socketIn.readObject();
-                String password = (String) socketIn.readObject();
-
-                if (serverController.getDealerController().validatePlayerLogin(username, password)) {
-                    socketOut.writeObject("verified");
-                    System.out.println("Login Success!");
-                    verified = true;
-                    serverController.getDealerController().addPlayer(username); // change name to username after login
-                    return;
-                } else {
-                    socketOut.writeObject("Invalid Username and Password");
-                }
-
-                socketOut.flush();
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-=======
     // Starts game
     public void startGame(){
         String gameStartingMsg = "Game Starting!";
@@ -247,7 +211,4 @@ public class ServerCommunicationController implements Runnable, Constants {
     public Player getPlayer() {
         return player;
     }
-
-
->>>>>>> 2be4464dc1ac2bf761e8ba90cd8fb574fdde0e39
 }
