@@ -40,6 +40,8 @@ public class LoginController extends GUIController{
                     System.out.println("Invalid Username or Password or user already logged in. Try again");
                 }
 
+                verified = verifyPing();
+
                 clientCommunicationController.getSocketOut().flush();
             } catch (Exception f) {
                 f.printStackTrace();
@@ -49,7 +51,11 @@ public class LoginController extends GUIController{
 
     public boolean verifyPing(){
         try {
-            clientCommunicationController.getSocketIn().readObject();
+            String serverReq;
+            do {
+                serverReq = (String)clientCommunicationController.getSocketIn().readObject();
+            }while(!serverReq.equals("ping"));
+
             clientCommunicationController.getSocketOut().writeObject("check");
 
             String serverResponse = (String)clientCommunicationController.getSocketIn().readObject();
