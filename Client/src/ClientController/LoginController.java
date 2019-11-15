@@ -40,7 +40,8 @@ public class LoginController extends GUIController{
                     System.out.println("Invalid Username or Password or user already logged in. Try again");
                 }
 
-                verified = verifyPing();
+                if(!username.equals("observer"))
+                    verified = verifyPing();
 
                 clientCommunicationController.getSocketOut().flush();
             } catch (Exception f) {

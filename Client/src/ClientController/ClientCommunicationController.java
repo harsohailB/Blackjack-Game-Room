@@ -3,6 +3,7 @@ package ClientController;
 import ClientView.LoginView;
 import ClientView.MainView;
 
+import javax.mail.MessagingException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -59,7 +60,7 @@ public class ClientCommunicationController extends Thread{
     }
 
     // Connects to blackjack server
-    public static void main(String[] args){
+    public static void main(String[] args) throws MessagingException {
         String ip = LoginView.promptIP();
         ClientCommunicationController ccc = new ClientCommunicationController(ip, 8000);
         ccc.communicate();
@@ -128,7 +129,7 @@ public class ClientCommunicationController extends Thread{
                 socketOut.writeObject(input);
                 turn = false;
             }else {             // otherwise, wait for chat input
-                System.out.println("Enter message with '/all':");
+                System.out.println("Enter request with '/...':");
                 input = scanner.nextLine();
 
                 if(turn) {      // if server requires decision
@@ -149,20 +150,26 @@ public class ClientCommunicationController extends Thread{
         }
 
         String[] inputArray = input.split(" ");
-        String allOrUsername = inputArray[0].substring(1);
+        String requestType = inputArray[0].substring(1);
 
         boolean publicMsg = false;
-        if(allOrUsername.equals("all")){
+        if(requestType.equals("all")) {
             publicMsg = true;
-        }else{
-            publicMsg = false;
+        }else if(requestType.equals("invite")){
+            String email = inputArray[1];
+            try {
+                emailSender.sendMail(email);
+            }catch (MessagingException e){
+                e.printStackTrace();
+            }
+            return;
         }
 
         try {
             if (publicMsg) { // public message
                 input = "all " + loginController.getUsername() + " : " + input.substring(5);
             } else { // private message
-                input = allOrUsername + " " + loginController.getUsername() + " : ";
+                input = requestType + " " + loginController.getUsername() + " : ";
                 for(int i = 1; i < inputArray.length; i++){
                     input += inputArray[i] + " ";
                 }

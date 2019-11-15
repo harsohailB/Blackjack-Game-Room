@@ -1,5 +1,6 @@
 package ClientController;
 
+import java.net.InetAddress;
 import java.util.*;
 import java.util.logging.Logger;
 import javax.mail.*;
@@ -17,8 +18,8 @@ public class EmailSender {
         properties.put("mail.smtp.host", "smtp.gmail.com");
         properties.put("mail.smtp.port", "587");
 
-        String myAccountEmail = "xxxx";
-        String password = "xxxx";
+        String myAccountEmail = "blackjackCPSC441@gmail.com";
+        String password = "fall2019cpsc441";
 
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
@@ -38,8 +39,10 @@ public class EmailSender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("My First Email from Java App");
-            message.setText("Hey There!");
+            message.setSubject("CPSC 411 Blackjack Invite");
+            message.setText("To join you need the following:\n" +
+                    "IP Address: " + InetAddress.getLocalHost() + "\n" +
+                    "PORT = 8000");
             return message;
         }catch (Exception e){
             e.printStackTrace();
