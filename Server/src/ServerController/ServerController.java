@@ -186,7 +186,6 @@ public class ServerController implements Constants {
     // Notifies waiting players with game status
     public void notifyPlayersIfReady(){
         if(dealerController.getBlackjackGame().isReady()){
-            System.out.println("notifying ready");
             sendToAllPlayers(READY);
         }else{
             sendToAllPlayers(WAITING_FOR_PLAYERS);

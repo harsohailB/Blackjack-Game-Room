@@ -1,6 +1,7 @@
 package ClientView;
 
 import java.io.IOException;
+import java.util.Random;
 import java.util.Scanner;
 
 public class MainView{

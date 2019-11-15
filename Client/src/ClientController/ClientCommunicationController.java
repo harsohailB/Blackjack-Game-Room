@@ -28,6 +28,7 @@ public class ClientCommunicationController extends Thread{
     private byte[] udpBuffer;
     private InetAddress IP;
     private boolean turn;
+    private EmailSender emailSender;
 
     // Controllers
     private LoginController loginController;
@@ -49,6 +50,8 @@ public class ClientCommunicationController extends Thread{
 
             loginController = new LoginController(loginView, this);
             mainGUIController = new MainGUIController(mainView, this);
+
+            emailSender = new EmailSender();
         }catch (IOException e){
             System.out.println("Client Communication Controller constructor error");
             e.printStackTrace();
