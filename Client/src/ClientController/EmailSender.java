@@ -9,6 +9,8 @@ import javax.activation.*;
 
 public class EmailSender {
 
+    private static int num = 0;
+
     public void sendMail(String recepient) throws MessagingException {
         System.out.println("Preparing to send email");
         Properties properties = new Properties();
@@ -39,10 +41,11 @@ public class EmailSender {
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(myAccountEmail));
             message.setRecipient(Message.RecipientType.TO, new InternetAddress(recepient));
-            message.setSubject("CPSC 411 Blackjack Invite");
+            message.setSubject("CPSC 411 Blackjack Invite " + String.valueOf(num));
             message.setText("To join you need the following:\n" +
                     "IP Address: " + InetAddress.getLocalHost() + "\n" +
                     "PORT = 8000");
+            num++;
             return message;
         }catch (Exception e){
             e.printStackTrace();
