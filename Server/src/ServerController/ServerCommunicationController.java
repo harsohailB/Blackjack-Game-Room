@@ -108,6 +108,10 @@ public class ServerCommunicationController implements Runnable, Constants {
                     player = new Player();
                     verified = true;
                 } else {
+                    if(serverController.getDealerController().playerExists(username)){
+                        socketOut.writeObject("Player already exists!");
+                        continue;
+                    }
                     Player newPlayer = new Player(username, password, 200);
                     verified = true;
                     socketOut.writeObject(VERIFIED);

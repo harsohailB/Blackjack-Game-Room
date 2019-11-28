@@ -247,6 +247,14 @@ public class DealerController implements Constants {
         }
     }
 
+    public boolean playerExists(String username){
+        if(playerAccounts.getPlayer(username) != null){
+            return true;
+        }
+
+        return false;
+    }
+
     // Getters and Setters
 
     public BlackjackGame getBlackjackGame() {

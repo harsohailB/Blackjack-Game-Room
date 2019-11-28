@@ -38,6 +38,7 @@ public class LoginController extends GUIController{
                     this.username = username;
                 } else {
                     System.out.println("Invalid Username or Password or user already logged in. Try again");
+                    continue;
                 }
 
                 if(!username.equals("observer"))

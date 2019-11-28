@@ -30,6 +30,8 @@ public class ClientCommunicationController extends Thread{
     private InetAddress IP;
     private boolean turn;
     private EmailSender emailSender;
+    private static final int TCP_PORT = 6000;
+    private static final int UDP_PORT = 1236;
 
     // Controllers
     private LoginController loginController;
@@ -62,7 +64,7 @@ public class ClientCommunicationController extends Thread{
     // Connects to blackjack server
     public static void main(String[] args) throws MessagingException {
         String ip = LoginView.promptIP();
-        ClientCommunicationController ccc = new ClientCommunicationController(ip, 8000);
+        ClientCommunicationController ccc = new ClientCommunicationController(ip, ClientCommunicationController.TCP_PORT);
         ccc.communicate();
     }
 
@@ -176,7 +178,7 @@ public class ClientCommunicationController extends Thread{
             }
 
             udpBuffer = input.getBytes();
-            DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, 1235);
+            DatagramPacket udpPacket = new DatagramPacket(udpBuffer, udpBuffer.length, IP, ClientCommunicationController.UDP_PORT);
             udpSocket.send(udpPacket);
             System.out.println("Message sent!");
         }catch (IOException e){
