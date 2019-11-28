@@ -7,11 +7,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="30a173c0-05d4-4d9f-8889-23169b2f7810" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/EmailSender$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/EmailSender$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/EmailSender.class" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/out/production/Client/ClientController/EmailSender.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../Client/src/ClientController/EmailSender.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Client/src/ClientController/EmailSender.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/Server/ServerController/ServerCommunicationController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/ServerController/ServerCommunicationController.java" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

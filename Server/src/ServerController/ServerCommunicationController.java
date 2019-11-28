@@ -213,7 +213,7 @@ public class ServerCommunicationController implements Runnable, Constants {
             long ping = end - start;
             System.out.print(player.getName() + "ping: " + ping);
 
-            if(ping < 50){
+            if(ping < 100){
                 System.out.print(" PASSED!\n");
                 socketOut.writeObject(PASSED);
                 return true;
